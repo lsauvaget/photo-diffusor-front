@@ -1,0 +1,18 @@
+.Gallery {
+}
+
+.Gallery__item-wrapper {
+   display: flex; 
+   flex-flow: row wrap;
+   justify-content: space-around;
+   background: rgb(35, 35, 35);
+   padding-bottom: 160px;
+}
+
+.Gallery__item-wrapper--blurred {
+    filter: blur(5px);
+}
+
+.Gallery__item-wrapper__item {
+    margin: 20px;
+}
