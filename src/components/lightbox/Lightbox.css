@@ -9,6 +9,39 @@
     transform: translate(-50%, -50%);
 }
 
+.Lightbox__wrapper__arrow {
+    z-index: 11;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.Lightbox__wrapper__arrow-left {
+    left: 20px;
+}
+
+.Lightbox__wrapper__arrow-right {
+    right: 20px;
+}
+
+.Arrow {
+    transition: all .2s ease-in-out;
+    opacity: .7;
+    width: 25px;
+    cursor: pointer;
+}
+
+.Arrow:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.Arrow path {
+    fill: none;
+    stroke: rgba(255, 255, 255, .7);
+    stroke-width: 3px;
+}
+
 
 .Lightbox__overlay {
     z-index: 2;
@@ -25,6 +58,13 @@
     opacity: 0;
 }
 
+@media screen and (orientation: portrait) {
+    .Lightbox__wrapper__img {
+        width: 90vw;
+        height: auto;
+    }
+}
+
 .Lightbox__wrapper__img--loaded {
     opacity: 1;
     animation: apparition ease-in-out .8s;
@@ -33,4 +73,27 @@
 @keyframes apparition {
     0% {opacity: 0;}
     100% {opacity: 1;}
+}
+
+.cross {
+    z-index: 14;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px; 
+    height: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.cross:hover {
+    transform: rotate(90deg);
+}
+
+.cross:hover path {
+    fill: rgba(255, 255, 255, .9);
+    cursor: pointer;
+}
+
+.cross path {
+    fill: rgba(255, 255, 255, .7);
 }

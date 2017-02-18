@@ -1,0 +1,48 @@
+.FilmStrip {
+    display: flex;
+    width: 100%;
+    height: 120px;
+    justify-content: space-around;
+    overflow: auto;
+    background-color: rgb(21, 21, 21);
+    transition: height .3s ease-in-out;
+}
+
+.FilmStrip--close {
+    transition: height .3s ease-in-out;
+    height: 0;
+}
+
+.FilmStrip__toggle {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    width: 100%;
+    color: white;
+}
+
+.FilmStripItem {
+    display: flex;
+    height: 100px;
+    cursor: pointer;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.FilmStripItem__img {
+    height: 100%;
+    width: auto;
+}
+
+.Toggle {
+    height: 60px;
+    transform: translateY(70%);
+}
+
+.Toggle path {
+    stroke: none;
+    stroke-width: 1;
+    fill: rgb(21, 21, 21);
+}
