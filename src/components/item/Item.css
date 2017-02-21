@@ -1,7 +1,7 @@
 .Item {
    position: relative;
-   width: 450px;
-   height: 300px;
+   width: 30vw;
+   height: 20vw;
    border: 3px solid #2d2d2d;
    background-color: #2d2d2d;
    box-shadow: 0px 1px 7px 2px #1f1f1f;
