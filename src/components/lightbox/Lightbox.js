@@ -35,17 +35,19 @@ class Lightbox extends Component {
                     moveLeft={this.props.loadPrev}
                     moveRight={this.props.loadNext} >
                     <div className="Lightbox__wrapper">
-                        {props.clickOnCloseButton && 
-                        <div className="Lightbox__wrapper__close">
-                            <Cross click={props.clickOnCloseButton}/>
+                        {props.clickOnCloseButton && this.state.imageLoaded && 
+                        <div className="Lightbox__wrapper__actions">
+                            <div className="Lightbox__wrapper__actions__close">
+                                <Cross click={props.clickOnCloseButton}/>
+                            </div>
+                            <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-left">
+                                <LeftArrow click={props.loadPrev}/>
+                            </div>
+                            <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-right">
+                                <RightArrow click={props.loadNext}/>
+                            </div>
                         </div>}
                         {!this.state.imageLoaded && <Loader/>}
-                        <div className="Lightbox__wrapper__arrow Lightbox__wrapper__arrow-left">
-                            <LeftArrow click={props.loadPrev}/>
-                        </div>
-                        <div className="Lightbox__wrapper__arrow Lightbox__wrapper__arrow-right">
-                            <RightArrow click={props.loadNext}/>
-                        </div>
                         <img onLoad={this.imageLoaded} className={imageClass} src={props.fullSize} alt=""/>
                     </div>
                 </TouchWrapper>

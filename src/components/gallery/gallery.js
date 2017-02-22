@@ -48,6 +48,12 @@ class Gallery extends Component {
                 media: props.media
             });
         }
+        if (props.keypress === 37) {
+            this.loadPrev();
+        }
+        if (props.keypress === 39) {
+            this.loadNext();
+        }
     }
 
     clickOnMedium = (medium) => {
@@ -64,15 +70,6 @@ class Gallery extends Component {
 
     loadPrev = () => {
         this.dispatch({type: 'LOAD_PREV_IMAGE'});
-    }
-
-    keyPress = (evt) => {
-        if (evt.keyCode === 37) {
-            this.loadPrev();
-        }
-        if (evt.keyCode === 39) {
-            this.loadNext();
-        }
     }
 
     render() {
