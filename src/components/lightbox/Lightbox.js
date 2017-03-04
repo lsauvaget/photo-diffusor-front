@@ -20,22 +20,32 @@ class Lightbox extends Component {
     }
 
     imageLoaded = () => {
-        console.log('loaded')
         return this.setState({
             imageLoaded: true
         });
     }
 
+    toggleFullScreen = () => {
+        const newFullScreenState = !this.state.fullScreen;
+        this.props.toggleFullScreen(newFullScreenState);
+        this.setState({
+            fullScreen: newFullScreenState
+        });
+    }
+
     render() {
         const props = this.props;
-        const imageClass = `${this.state.imageLoaded ? 'Lightbox__wrapper__img--loaded' : ''} Lightbox__wrapper__img`;
+        let imageClass = 'Lightbox__wrapper__img';
+        imageClass += this.state.imageLoaded ? ' Lightbox__wrapper__img--loaded' : '' ;
+        imageClass += this.state.fullScreen ? ' Lightbox__wrapper__img--fullScreen' : '';
         return (
             <div className="Lightbox">
                 <TouchWrapper
+                    click={this.toggleFullScreen}
                     moveLeft={this.props.loadPrev}
                     moveRight={this.props.loadNext} >
                     <div className="Lightbox__wrapper">
-                        {props.clickOnCloseButton && this.state.imageLoaded && 
+                        {props.clickOnCloseButton && this.state.imageLoaded && !this.state.fullScreen &&
                         <div className="Lightbox__wrapper__actions">
                             <div className="Lightbox__wrapper__actions__close">
                                 <Cross click={props.clickOnCloseButton}/>
@@ -48,7 +58,7 @@ class Lightbox extends Component {
                             </div>
                         </div>}
                         {!this.state.imageLoaded && <Loader/>}
-                        <img onLoad={this.imageLoaded} className={imageClass} src={props.fullSize} alt=""/>
+                        <img  onLoad={this.imageLoaded} className={imageClass} src={props.fullSize} alt=""/>
                     </div>
                 </TouchWrapper>
                 <div onClick={props.clickOnCloseButton && props.clickOnCloseButton} className="Lightbox__overlay"></div>

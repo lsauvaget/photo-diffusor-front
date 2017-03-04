@@ -14,7 +14,7 @@ const getIdxOfSelectedMedium = (state) => {
     return idx;
 };
 
-const reducer = (state = {selectedMedium: null, media: []}, action) => {
+const reducer = (state = {selectedMedium: null, media: [], fullScreen: false}, action) => {
     switch (action.type) {
         case 'SELECT_MEDIUM':
             return {selectedMedium: action.token.selectedMedium};
@@ -30,6 +30,8 @@ const reducer = (state = {selectedMedium: null, media: []}, action) => {
                 const idx = getIdxOfSelectedMedium(state);
                 return {selectedMedium: idx - 1 > 0 ? state.media[idx - 1] : state.media[state.media.length - 1]};
             }
+        case 'TOGGLE_FULL_SCREEN_LIGHTBOX':
+            return {fullScreen: action.token.fullScreen}
         default: 
             return state;
     }
@@ -72,13 +74,19 @@ class Gallery extends Component {
         this.dispatch({type: 'LOAD_PREV_IMAGE'});
     }
 
+    toggleFullScreenLightbox = (fullScreen) => {
+        console.log(fullScreen)
+        this.dispatch({type: 'TOGGLE_FULL_SCREEN_LIGHTBOX', token: {fullScreen}});
+    }
+
     render() {
         const media = this.props.media;
         const selectedMedium = this.state.selectedMedium;
+        const fullScreen = this.state.fullScreen;
         const classOnItemWrapper = `Gallery__item-wrapper ${selectedMedium ? 'Gallery__item-wrapper--blurred' : ''}`
         return (
             <div className="Gallery">
-                {selectedMedium && 
+                {selectedMedium && !fullScreen &&
                 <div className="Gallery__filmStrip">
                     <FilmStrip clickOnFilmStripItem={this.clickOnMedium} media={media}/>
                 </div> }
@@ -86,6 +94,7 @@ class Gallery extends Component {
                 <Lightbox 
                     loadNext={this.loadNext}
                     loadPrev={this.loadPrev}
+                    toggleFullScreen={this.toggleFullScreenLightbox}
                     clickOnCloseButton={this.closeLightbox} 
                     fullSize={`${configs.mediaUrl}${selectedMedium.fullSize}`}/>}
                 <div className={classOnItemWrapper}>

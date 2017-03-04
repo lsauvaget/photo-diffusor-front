@@ -15,7 +15,9 @@ class TouchWrapper extends Component {
     render() {
         let touchStart = null;
         return (
-                <div onTouchStart={e => touchStart = e.changedTouches[0].clientX}
+                <div 
+                    onClick={this.props.click}
+                    onTouchStart={e => touchStart = e.changedTouches[0].clientX}
                     onTouchEnd={e => this.touchLeave(touchStart, e.changedTouches[0].clientX)} >
                     {this.props.children}
                 </div>

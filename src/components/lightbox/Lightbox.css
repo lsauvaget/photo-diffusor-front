@@ -64,10 +64,12 @@
 }
 
 .Lightbox__wrapper__img {
+    cursor: pointer;
     width: auto;
     height: 90vh;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
     opacity: 0;
+    transition: height .2s ease-in-out, width .2s ease-in-out;
 }
 
 
@@ -81,6 +83,17 @@
 .Lightbox__wrapper__img--loaded {
     opacity: 1;
     animation: apparition ease-in-out .8s;
+}
+
+.Lightbox__wrapper__img--fullScreen {
+    height: 100vh;
+}
+
+@media screen and (orientation: portrait) {
+    .Lightbox__wrapper__img--fullScreen {
+        height: auto;
+        width: 100vw;
+    }
 }
 
 @keyframes apparition {
