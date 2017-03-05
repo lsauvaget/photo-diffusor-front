@@ -3,34 +3,53 @@ import './Lightbox.css';
 import Loader from '../loader/Loader.js';
 import TouchWrapper from '../TouchWrapper.js';
 
+const defaultState = {
+    imageLoaded: false,
+    fullScreen: false
+};
+
+const reducer = (state = defaultState, action) => {
+    switch(action.type) {
+        case 'ENABLE_FULL_SCREEN':
+            return {fullScreen: true};
+        case 'DISABLE_FULL_SCREEN': 
+            return {fullScreen: false};
+        case 'TOGGLE_FULL_SCREEN': 
+            return {fullScreen: !state.fullScreen};
+        case 'ENABLE_IMAGE_LOADER': 
+            return {imageLoaded: false};
+        case 'DISABLE_IMAGE_LOADER': 
+            return {imageLoaded: true};
+        default:
+            return state;
+    }
+};
+
 class Lightbox extends Component {
+
+    state = reducer(undefined, {});
+
     constructor(props) {
         super(props);
-        this.state = {
-            imageLoaded: false
-        };
+    }
+
+    dispatch(action) {
+        this.setState(prevState => reducer(prevState, action));
     }
 
     componentWillReceiveProps(props) {
         if(props.fullSize !== this.props.fullSize) {
-            this.setState({
-                imageLoaded: false
-            });
+            this.dispatch({type: 'ENABLE_IMAGE_LOADER'});
         } 
     }
 
     imageLoaded = () => {
-        return this.setState({
-            imageLoaded: true
-        });
+        this.dispatch({type: 'DISABLE_IMAGE_LOADER'});
     }
 
-    toggleFullScreen = () => {
-        const newFullScreenState = !this.state.fullScreen;
-        this.props.toggleFullScreen(newFullScreenState);
-        this.setState({
-            fullScreen: newFullScreenState
-        });
+    toggleFullScreen = (e) => {
+        this.dispatch({type: 'TOGGLE_FULL_SCREEN'});
+        this.props.toggleFullScreen(this.props.fullScreen);
     }
 
     render() {

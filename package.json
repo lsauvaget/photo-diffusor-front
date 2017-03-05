@@ -11,6 +11,7 @@
     "axios": "^0.15.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-scrolllock": "^1.0.5",
     "socket.io-client": "^1.7.2"
   },
   "scripts": {

@@ -5,6 +5,7 @@ import Lightbox from '../lightbox/Lightbox.js';
 import FilmStrip from '../filmStrip/filmStrip.js';
 import configs from '../../configs';
 import withKeyPress from '../withKeyPress.js';
+import ScrollLock from 'react-scrolllock';
 
 
 const getIdxOfSelectedMedium = (state) => {
@@ -90,6 +91,7 @@ class Gallery extends Component {
                 <div className="Gallery__filmStrip">
                     <FilmStrip clickOnFilmStripItem={this.clickOnMedium} media={media}/>
                 </div> }
+                {selectedMedium && <ScrollLock/>}
                 {selectedMedium && 
                 <Lightbox 
                     loadNext={this.loadNext}
