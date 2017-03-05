@@ -1,0 +1,25 @@
+.Item {
+   position: relative;
+   width: 30vw;
+   height: 20vw;
+   border: 3px solid #2d2d2d;
+   background-color: #2d2d2d;
+   box-shadow: 0px 1px 7px 2px #1f1f1f;
+   cursor: pointer;
+   transition: all .3s ease-in;
+   overflow: hidden;
+
+   &__img {
+       position: relative;
+       width: 120%;
+       height: 120%;
+       object-fit: cover;
+       left: -10%;
+       top: -10%;
+       transform: scale(0.9);
+       transition: all 380ms ease-out;
+   }
+}
+
+
+

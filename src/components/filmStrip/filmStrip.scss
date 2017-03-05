@@ -6,21 +6,23 @@
     overflow: auto;
     background-color: rgb(21, 21, 21);
     transition: height .3s ease-in-out;
+
+    &--close {
+        transition: height .3s ease-in-out;
+        height: 0;
+    }
+
+    &__toggle {
+        position: absolute;
+        left: 50%;
+        bottom: 100%;
+        transform: translateX(-50%);
+        width: 100%;
+        color: white;
+    }
 }
 
-.FilmStrip--close {
-    transition: height .3s ease-in-out;
-    height: 0;
-}
 
-.FilmStrip__toggle {
-    position: absolute;
-    left: 50%;
-    bottom: 100%;
-    transform: translateX(-50%);
-    width: 100%;
-    color: white;
-}
 
 .FilmStripItem {
     display: flex;
@@ -29,20 +31,21 @@
     margin: 10px;
     justify-content: center;
     align-items: center;
+
+    &__img {
+        height: 100%;
+        width: auto;
+    }
 }
 
-.FilmStripItem__img {
-    height: 100%;
-    width: auto;
-}
 
 .Toggle {
     height: 60px;
     transform: translateY(70%);
-}
 
-.Toggle path {
-    stroke: none;
-    stroke-width: 1;
-    fill: rgb(21, 21, 21);
+    path {
+        stroke: none;
+        stroke-width: 1;
+        fill: rgb(21, 21, 21);
+    }
 }

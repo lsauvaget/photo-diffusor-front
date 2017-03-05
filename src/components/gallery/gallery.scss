@@ -8,26 +8,27 @@
     background: rgb(35, 35, 35);
     min-height: 100vh;
     width: 100vw;
+
+    &__filmStrip {
+        width: 100%;
+        position: fixed;
+        z-index: 20;
+        bottom: 0;
+    }
+
+    &__item-wrapper {
+        display: flex; 
+        flex-flow: row wrap;
+        justify-content: space-around;
+        padding-bottom: 160px;
+
+        &--blurred {
+            filter: blur(5px);
+        }
+
+        &__item {
+            margin: 10px;
+        }
+    }
 }
 
-.Gallery__filmStrip {
-    width: 100%;
-    position: fixed;
-    z-index: 20;
-    bottom: 0;
-}
-
-.Gallery__item-wrapper {
-   display: flex; 
-   flex-flow: row wrap;
-   justify-content: space-around;
-   padding-bottom: 160px;
-}
-
-.Gallery__item-wrapper--blurred {
-    filter: blur(5px);
-}
-
-.Gallery__item-wrapper__item {
-    margin: 10px;
-}
