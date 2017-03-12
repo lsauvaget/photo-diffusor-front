@@ -29,10 +29,6 @@ class Lightbox extends Component {
 
     state = reducer(undefined, {});
 
-    constructor(props) {
-        super(props);
-    }
-
     dispatch(action) {
         this.setState(prevState => reducer(prevState, action));
     }

@@ -2,12 +2,28 @@ import React, { Component } from 'react';
 import './filmStrip.css';
 import configs from '../../configs';
 
+const defaultState = {
+    isOpen: false
+};
+
+const reducer = (state = defaultState, action) => {
+    switch (action.type) {
+        case 'OPEN_FILMSTRIP':
+            return {isOpen: true};
+        case 'CLOSE_FILMSTRIP':
+            return {isOpen: false};
+        case 'TOGGLE_FILMSTRIP_VISIBILITY':
+            return {isOpen: !state.isOpen};
+        default:
+            return state;
+    }
+}
+
 class FilmStrip extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false
-        }
+    state = reducer(undefined, {})
+
+    dispatch(action) {
+        this.setState(prevState => reducer(prevState, action));
     }
 
     clickOnMedium = (medium) => {
@@ -17,9 +33,7 @@ class FilmStrip extends Component {
     }
 
     toggleShowFilmStrip = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
+        this.dispatch({type: 'TOGGLE_FILMSTRIP_VISIBILITY'});
     }
 
     render() {
