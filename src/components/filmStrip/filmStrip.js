@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './filmStrip.css';
 import configs from '../../configs';
+import {OPEN_FILMSTRIP, CLOSE_FILMSTRIP, TOGGLE_FILMSTRIP_VISIBILITY} from '../../actions/filmStrip.js';
+
 
 const defaultState = {
     isOpen: false
@@ -8,11 +10,11 @@ const defaultState = {
 
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
-        case 'OPEN_FILMSTRIP':
+        case OPEN_FILMSTRIP:
             return {isOpen: true};
-        case 'CLOSE_FILMSTRIP':
+        case CLOSE_FILMSTRIP:
             return {isOpen: false};
-        case 'TOGGLE_FILMSTRIP_VISIBILITY':
+        case TOGGLE_FILMSTRIP_VISIBILITY:
             return {isOpen: !state.isOpen};
         default:
             return state;
@@ -33,7 +35,7 @@ class FilmStrip extends Component {
     }
 
     toggleShowFilmStrip = () => {
-        this.dispatch({type: 'TOGGLE_FILMSTRIP_VISIBILITY'});
+        this.dispatch({type: TOGGLE_FILMSTRIP_VISIBILITY});
     }
 
     render() {

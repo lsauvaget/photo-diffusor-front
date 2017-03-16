@@ -6,6 +6,13 @@ import FilmStrip from '../filmStrip/filmStrip.js';
 import configs from '../../configs';
 import withKeyPress from '../withKeyPress.js';
 import ScrollLock from 'react-scrolllock';
+import {SELECT_MEDIUM} from '../../actions/gallery.js';
+import {
+    CLOSE_LIGHTBOX, 
+    LOAD_PREV_IMAGE, 
+    LOAD_NEXT_IMAGE, 
+    TOGGLE_FULL_SCREEN_LIGHTBOX
+} from '../../actions/lightbox.js';
 
 
 const getIdxOfSelectedMedium = (state) => {
@@ -17,21 +24,21 @@ const getIdxOfSelectedMedium = (state) => {
 
 const reducer = (state = {selectedMedium: null, media: [], fullScreen: false}, action) => {
     switch (action.type) {
-        case 'SELECT_MEDIUM':
+        case SELECT_MEDIUM:
             return {selectedMedium: action.token.selectedMedium};
-        case 'CLOSE_LIGHTBOX':
+        case CLOSE_LIGHTBOX:
             return {selectedMedium: null};
-        case 'LOAD_NEXT_IMAGE':
+        case LOAD_NEXT_IMAGE:
             {
                 const idx = getIdxOfSelectedMedium(state);
                 return {selectedMedium: idx < state.media.length ? state.media[idx + 1] : state.media[0]};
             }
-        case 'LOAD_PREV_IMAGE':
+        case LOAD_PREV_IMAGE:
             {
                 const idx = getIdxOfSelectedMedium(state);
                 return {selectedMedium: idx - 1 > 0 ? state.media[idx - 1] : state.media[state.media.length - 1]};
             }
-        case 'TOGGLE_FULL_SCREEN_LIGHTBOX':
+        case TOGGLE_FULL_SCREEN_LIGHTBOX:
             return {fullScreen: action.token.fullScreen}
         default: 
             return state;
@@ -60,24 +67,24 @@ class Gallery extends Component {
     }
 
     clickOnMedium = (medium) => {
-        this.dispatch({type: 'SELECT_MEDIUM', token: {selectedMedium: medium}})
+        this.dispatch({type: SELECT_MEDIUM, token: {selectedMedium: medium}})
     }
 
     closeLightbox = () => {
-        this.dispatch({type: 'CLOSE_LIGHTBOX'});
+        this.dispatch({type: CLOSE_LIGHTBOX});
     }
 
     loadNext = () => {
-        this.dispatch({type: 'LOAD_NEXT_IMAGE'});
+        this.dispatch({type: LOAD_NEXT_IMAGE});
     }
 
     loadPrev = () => {
-        this.dispatch({type: 'LOAD_PREV_IMAGE'});
+        this.dispatch({type: LOAD_PREV_IMAGE});
     }
 
     toggleFullScreenLightbox = (fullScreen) => {
         console.log(fullScreen)
-        this.dispatch({type: 'TOGGLE_FULL_SCREEN_LIGHTBOX', token: {fullScreen}});
+        this.dispatch({type: TOGGLE_FULL_SCREEN_LIGHTBOX, token: {fullScreen}});
     }
 
     render() {

@@ -1,0 +1,1 @@
+export const SELECT_MEDIUM = 'SELECT_MEDIUM';
