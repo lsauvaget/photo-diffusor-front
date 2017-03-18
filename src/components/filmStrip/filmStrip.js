@@ -1,59 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './filmStrip.css';
 import configs from '../../configs';
-import {OPEN_FILMSTRIP, CLOSE_FILMSTRIP, TOGGLE_FILMSTRIP_VISIBILITY} from '../../actions/filmStrip.js';
 
-
-const defaultState = {
-    isOpen: false
-};
-
-const reducer = (state = defaultState, action) => {
-    switch (action.type) {
-        case OPEN_FILMSTRIP:
-            return {isOpen: true};
-        case CLOSE_FILMSTRIP:
-            return {isOpen: false};
-        case TOGGLE_FILMSTRIP_VISIBILITY:
-            return {isOpen: !state.isOpen};
-        default:
-            return state;
-    }
-}
-
-class FilmStrip extends Component {
-    state = reducer(undefined, {})
-
-    dispatch(action) {
-        this.setState(prevState => reducer(prevState, action));
-    }
-
-    clickOnMedium = (medium) => {
-        return () => {
-            this.props.clickOnFilmStripItem(medium);
-        }
-    }
-
-    toggleShowFilmStrip = () => {
-        this.dispatch({type: TOGGLE_FILMSTRIP_VISIBILITY});
-    }
-
-    render() {
-        const media = this.props.media;
-        const isOpen = this.state.isOpen;
-        const filmStripClass = 'FilmStrip ' + (isOpen ? 'FilmStrip--open' : 'FilmStrip--close');
-        return (
-            <div className={filmStripClass}>
-                <div draggable="true" className="FilmStrip__toggle" onTouchStart={this.toggleShowFilmStrip} onMouseEnter={this.toggleShowFilmStrip}> <Toggle/>
-                </div>
-                {media.length > 0 && media.map((medium, index) => 
-                    <div key={index} className="FilmStrip-wrapper__item">
-                        <FilmStripItem thumbnail={medium.thumbnail} click={this.clickOnMedium(medium)}/>
-                    </div>
-                    )}
-            </div>
-            );
-    }
+const FilmStrip = (props) => {
+    const media = props.media;
+    const isOpen = props.isOpen;
+    const filmStripClass = 'FilmStrip ' + (isOpen ? 'FilmStrip--open' : 'FilmStrip--close');
+    return (
+    <div className={filmStripClass}>
+        <div draggable="true" className="FilmStrip__toggle" onTouchStart={props.toggleShowFilmStrip} onMouseEnter={props.toggleShowFilmStrip}> 
+            <Toggle/>
+        </div>
+        {media.length > 0 && media.map((medium, index) => 
+        <div key={index} className="FilmStrip-wrapper__item">
+            <FilmStripItem thumbnail={medium.thumbnail} click={() => props.onMediumClick(medium)}/>
+        </div>
+        )}
+    </div>
+    )
 }
 
 const FilmStripItem = (props) => 

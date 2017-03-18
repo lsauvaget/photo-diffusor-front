@@ -58,7 +58,7 @@ class Item extends Component{
         return (
             <div ref={(itemWrapper) => this.$elem = itemWrapper} onMouseMove={this.mouseMove} className="Item">
                 <img onClick={props.click && props.click.bind(null, props.fullSize)} className="Item__img" src={props.thumbnail} alt=""/>
-                </div>
+            </div>
         )
     }
 }

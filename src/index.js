@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from 'react-snapshot';
-import App from './components/App.js'
+import App from './containers/App.js'
+import { Provider } from 'react-redux';
+import store from './store';
 import './index.css';
 
 render(
-  <App />,
+    <Provider store={store}>
+        <App />
+    </Provider>,
   document.getElementById('root')
 );

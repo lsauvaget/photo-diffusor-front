@@ -2,75 +2,42 @@ import React, { Component } from 'react';
 import './Lightbox.css';
 import Loader from '../loader/Loader.js';
 import TouchWrapper from '../TouchWrapper.js';
-import {
-    ENABLE_FULL_SCREEN, 
-    DISABLE_FULL_SCREEN, 
-    TOGGLE_FULL_SCREEN, 
-    ENABLE_IMAGE_LOADER, 
-    DISABLE_IMAGE_LOADER
-} from '../../actions/lightbox.js';
+import ScrollLock from 'react-scrolllock';
+import configs from '../../configs';
+import KeyDown from '../KeyDown.js';
 
-const defaultState = {
-    imageLoaded: false,
-    fullScreen: false
-};
-
-const reducer = (state = defaultState, action) => {
-    switch(action.type) {
-        case ENABLE_FULL_SCREEN:
-            return {fullScreen: true};
-        case DISABLE_FULL_SCREEN: 
-            return {fullScreen: false};
-        case TOGGLE_FULL_SCREEN: 
-            return {fullScreen: !state.fullScreen};
-        case ENABLE_IMAGE_LOADER: 
-            return {imageLoaded: false};
-        case DISABLE_IMAGE_LOADER: 
-            return {imageLoaded: true};
-        default:
-            return state;
-    }
-};
 
 class Lightbox extends Component {
 
-    state = reducer(undefined, {});
-
-    dispatch(action) {
-        this.setState(prevState => reducer(prevState, action));
-    }
-
     componentWillReceiveProps(props) {
-        if(props.fullSize !== this.props.fullSize) {
-            this.dispatch({type: ENABLE_IMAGE_LOADER});
+        if(props.medium !== this.props.medium) {
+            props.onImageLoadingStart();
         } 
-    }
-
-    imageLoaded = () => {
-        this.dispatch({type: DISABLE_IMAGE_LOADER});
-    }
-
-    toggleFullScreen = (e) => {
-        this.dispatch({type: TOGGLE_FULL_SCREEN});
-        this.props.toggleFullScreen(this.props.fullScreen);
     }
 
     render() {
         const props = this.props;
         let imageClass = 'Lightbox__wrapper__img';
-        imageClass += this.state.imageLoaded ? ' Lightbox__wrapper__img--loaded' : '' ;
-        imageClass += this.state.fullScreen ? ' Lightbox__wrapper__img--fullScreen' : '';
+        imageClass += props.imageLoaded ? ' Lightbox__wrapper__img--loaded' : '' ;
+        imageClass += props.fullScreen ? ' Lightbox__wrapper__img--fullScreen' : '';
         return (
             <div className="Lightbox">
                 <TouchWrapper
-                    click={this.toggleFullScreen}
-                    moveLeft={this.props.loadPrev}
-                    moveRight={this.props.loadNext} >
+                    moveLeft={props.loadPrev}
+                    moveRight={props.loadNext} >
+                
+                    <KeyDown
+                        keyCode="37"
+                        toTrigger={props.loadPrev} />
+                    <KeyDown
+                        keyCode="39"
+                        toTrigger={props.loadNext} />
+
                     <div className="Lightbox__wrapper">
-                        {props.clickOnCloseButton && this.state.imageLoaded && !this.state.fullScreen &&
+                        {props.imageLoaded && !props.fullScreen &&
                         <div className="Lightbox__wrapper__actions">
                             <div className="Lightbox__wrapper__actions__close">
-                                <Cross click={props.clickOnCloseButton}/>
+                                <Cross click={props.onCloseClick}/>
                             </div>
                             <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-left">
                                 <LeftArrow click={props.loadPrev}/>
@@ -79,11 +46,12 @@ class Lightbox extends Component {
                                 <RightArrow click={props.loadNext}/>
                             </div>
                         </div>}
-                        {!this.state.imageLoaded && <Loader/>}
-                        <img  onLoad={this.imageLoaded} className={imageClass} src={props.fullSize} alt=""/>
+                        {!props.imageLoaded && <Loader/>}
+                        <img onClick={props.toggleFullScreen} onLoad={props.onImageLoaded} className={imageClass} src={`${configs.mediaUrl}${props.medium.fullSize}`} alt=""/>
                     </div>
                 </TouchWrapper>
-                <div onClick={props.clickOnCloseButton && props.clickOnCloseButton} className="Lightbox__overlay"></div>
+                <div onClick={props.onCloseClick} className="Lightbox__overlay"></div>
+                <ScrollLock/>
             </div>
             )
     }

@@ -1,8 +1,0 @@
-{
-    filmStripOpen: false,
-        media: [],
-        selectedMedium: null, 
-        media: [], 
-        lightboxFullScreen: false,
-        imageLoadedInLightbox: false
-}

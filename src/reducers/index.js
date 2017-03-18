@@ -1,67 +1,64 @@
+import actions from '../actions';
+
 const initialState = {
     filmStripOpen: false,
     media: [],
     selectedMedium: null, 
-    media: [], 
     lightboxFullScreen: false,
     imageLoadedInLightbox: false
 };
 
 //filmStrip
 
-export default const reducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
     switch (action.type) {
-        case OPEN_FILMSTRIP:
-            return {filmStripOpen: true};
+        case actions.OPEN_FILMSTRIP:
+            return {...state, filmStripOpen: true};
 
-        case CLOSE_FILMSTRIP:
-            return {filmStripOpen: false};
+        case actions.CLOSE_FILMSTRIP:
+            return {...state, filmStripOpen: false};
 
-        case TOGGLE_FILMSTRIP_VISIBILITY:
-            return {filmStripOpen: !state.filmStripOpen};
+        case actions.TOGGLE_FILMSTRIP_VISIBILITY:
+            return {...state, filmStripOpen: !state.filmStripOpen};
 
-        case SELECT_MEDIUM:
-            return {selectedMedium: action.token.selectedMedium};
+        case actions.SELECT_MEDIUM:
+            return {...state, selectedMedium: action.selectedMedium};
 
-        case CLOSE_LIGHTBOX:
-            return {selectedMedium: null};
+        case actions.CLOSE_LIGHTBOX:
+            return {...state, selectedMedium: null};
 
-        case TOGGLE_FULL_SCREEN_LIGHTBOX:
-            return {lightboxFullScreen: action.token.lightboxFullScreen}
+        case actions.TOGGLE_FULL_SCREEN_LIGHTBOX:
+            return {...state, lightboxFullScreen: !state.lightboxFullScreen}
 
-        case ENABLE_FULL_SCREEN:
-            return {lightboxFullScreen: true};
+        case actions.ENABLE_FULL_SCREEN:
+            return {...state, lightboxFullScreen: true};
 
-        case DISABLE_FULL_SCREEN: 
-            return {lightboxFullScreen: false};
+        case actions.DISABLE_FULL_SCREEN: 
+            return {...state, lightboxFullScreen: false};
 
-        case TOGGLE_FULL_SCREEN: 
-            return {lightboxFullScreen: !state.fullScreen};
+        case actions.TOGGLE_FULL_SCREEN: 
+            return {...state, lightboxFullScreen: !state.fullScreen};
 
-        case ENABLE_IMAGE_LOADER: 
-            return {imageLoadedInLightbox: false};
+        case actions.IMAGE_LOADED_IN_LIGHTBOX: 
+            return {...state, imageLoadedInLightbox: true};
 
-        case DISABLE_IMAGE_LOADER: 
-            return {imageLoadedInLightbox: true};
+        case actions.IMAGE_LOADING_START_IN_LIGHTBOX: 
+            return {...state, imageLoadedInLightbox: false};
 
-        case LOAD_NEXT_IMAGE:
+        case actions.LOAD_NEXT_IMAGE:
             {
-                const idx = getIdxOfSelectedMedium(state);
-                return {selectedMedium: idx < state.media.length ? state.media[idx + 1] : state.media[0]};
+                const idx = state.media.indexOf(state.selectedMedium);
+                return {...state, selectedMedium: idx < state.media.length - 1 ? state.media[idx + 1] : state.media[0]};
             }
-        case LOAD_PREV_IMAGE:
+        case actions.LOAD_PREV_IMAGE:
             {
-                const idx = getIdxOfSelectedMedium(state);
-                return {selectedMedium: idx - 1 > 0 ? state.media[idx - 1] : state.media[state.media.length - 1]};
+                const idx = state.media.indexOf(state.selectedMedium);
+                return {...state, selectedMedium: idx - 1 > 0 ? state.media[idx - 1] : state.media[state.media.length - 1]};
             }
+
+        case actions.RECEIVE_MEDIA:
+            return {...state, media: [...state.media, ...action.media]}
         default:
             return state;
     }
 }
-
- function getIdxOfSelectedMedium(state) {
-    const selectedMedium = state.selectedMedium;
-    const media = state.media;
-    const idx = media.indexOf(selectedMedium);
-    return idx;
-};

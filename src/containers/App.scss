@@ -1,0 +1,11 @@
+.App {
+
+    &__lightbox {}
+    &__filmStrip {
+        position: fixed;
+        width: 100vw;
+        bottom: 0;
+        z-index: 15;
+    }
+    &__gallery {}
+}
