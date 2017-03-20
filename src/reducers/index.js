@@ -5,7 +5,8 @@ const initialState = {
     media: [],
     selectedMedium: null, 
     lightboxFullScreen: false,
-    imageLoadedInLightbox: false
+    imageLoadedInLightbox: false,
+    showFlashCode: false
 };
 
 //filmStrip
@@ -58,6 +59,13 @@ export default (state = initialState, action) => {
 
         case actions.RECEIVE_MEDIA:
             return {...state, media: [...state.media, ...action.media]}
+
+        case actions.SHOW_FLASH_CODE:
+            return {...state, showFlashCode: true};
+
+        case actions.CLOSE_FLASH_CODE:
+            return {...state, showFlashCode: false};
+
         default:
             return state;
     }

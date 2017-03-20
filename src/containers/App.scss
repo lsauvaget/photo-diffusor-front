@@ -8,4 +8,10 @@
         z-index: 15;
     }
     &__gallery {}
+    &__mobileButton {
+        z-index: 15;
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
 }

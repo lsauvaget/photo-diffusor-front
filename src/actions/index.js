@@ -8,13 +8,26 @@ const receiveMedia = (media) => ({
     type: RECEIVE_MEDIA,
     media
 });
-export default Object.assign({}, 
-    actionsLightbox, 
-    actionsGallery, 
-    actionsFilmStrip,
-    {
-        RECEIVE_MEDIA,
-        receiveMedia
-    }
-);
+
+const SHOW_FLASH_CODE = 'SHOW_FLASH_CODE';
+const showFlashCode = () => ({
+    type: SHOW_FLASH_CODE
+});
+
+const CLOSE_FLASH_CODE = 'CLOSE_FLASH_CODE';
+const closeFlashCode = () => ({
+    type: CLOSE_FLASH_CODE
+});
+
+export default {
+    ...actionsLightbox, 
+    ...actionsGallery, 
+    ...actionsFilmStrip,
+    RECEIVE_MEDIA,
+    receiveMedia,
+    SHOW_FLASH_CODE,
+    showFlashCode,
+    CLOSE_FLASH_CODE,
+    closeFlashCode
+};
 
