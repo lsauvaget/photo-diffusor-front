@@ -1,18 +1,55 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import './FlashCode.css';
-import Loader from '../loader/Loader.js';
 import ScrollLock from 'react-scrolllock';
-import flashCodefrom from './flashCode.png';
+import QRCode from 'davidshimjs-qrcodejs';
 
-const FlashCode = ({closeFlashCode, flashCodeLoaded}) => 
-        <div className="FlashCode">
+class FlashCode extends Component {
+    static propTypes = {
+        link: PropTypes.string.isRequired,
+        closeFlashCode: PropTypes.func.isRequired
+    }
+
+    constructor(props) {
+        super(props);
+        this.$elem = null;
+        this.qrcode = null;
+    }
+
+    componentWillReceiveProps({link}) {
+        if(link !== this.props.link && this.qrcode) {
+            this.qrcode.makeCode(link);
+        }
+    }
+
+    componentDidMount() {
+        const {link} = this.props;
+        this.qrcode = new QRCode(this.$elem, {
+            text: link,
+            width: 256,
+            height: 256,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        }); 
+    }
+
+    componentWillUnmount() {
+        this.qrcode.clear();
+    }
+
+    render() {
+        const {closeFlashCode} = this.props;
+        return (
+            <div className="FlashCode">
                 <div className="FlashCode__wrapper">
-                    {!flashCodeLoaded && <Loader/>}
-                    <img className="FlashCode__wrapper" src={flashCodefrom} alt=""/>
+                    <div className="FlashCode__wrapper" ref={$elem => this.$elem = $elem}></div>
                 </div>
-            <div onClick={closeFlashCode} className="FlashCode__overlay"></div>
-            <ScrollLock/>
-        </div>
+                <div onClick={closeFlashCode} className="FlashCode__overlay"></div>
+                <ScrollLock/>
+            </div>
+        )
+    }
 
+}
 
 export default FlashCode;

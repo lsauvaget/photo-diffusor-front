@@ -1,7 +1,12 @@
 import actions from '../actions';
-console.log(actions)
 import FlashCode from '../components/flashCode/FlashCode.js';
 import {connect} from 'react-redux';
+
+const mapStateToProps = (state) => {
+    return {
+        link: window.location.origin + '?room=' + state.roomId
+    }
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -12,6 +17,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(FlashCode);

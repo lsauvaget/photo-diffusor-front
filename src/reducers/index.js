@@ -6,13 +6,16 @@ const initialState = {
     selectedMedium: null, 
     lightboxFullScreen: false,
     imageLoadedInLightbox: false,
-    showFlashCode: false
+    showFlashCode: false,
+    flashCodeLink: 'test',
+    roomId: null
 };
 
 //filmStrip
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        //FilmStrip
         case actions.OPEN_FILMSTRIP:
             return {...state, filmStripOpen: true};
 
@@ -22,9 +25,18 @@ export default (state = initialState, action) => {
         case actions.TOGGLE_FILMSTRIP_VISIBILITY:
             return {...state, filmStripOpen: !state.filmStripOpen};
 
+
+
+        //Gallery
+        case actions.RECEIVE_MEDIA:
+            return {...state, media: [...state.media, ...action.media]}
+
         case actions.SELECT_MEDIUM:
             return {...state, selectedMedium: action.selectedMedium};
 
+
+
+        //Lightbox
         case actions.CLOSE_LIGHTBOX:
             return {...state, selectedMedium: null};
 
@@ -57,14 +69,16 @@ export default (state = initialState, action) => {
                 return {...state, selectedMedium: idx - 1 > 0 ? state.media[idx - 1] : state.media[state.media.length - 1]};
             }
 
-        case actions.RECEIVE_MEDIA:
-            return {...state, media: [...state.media, ...action.media]}
 
+        //FlashCode
         case actions.SHOW_FLASH_CODE:
             return {...state, showFlashCode: true};
 
         case actions.CLOSE_FLASH_CODE:
             return {...state, showFlashCode: false};
+
+        case actions.RECEIVE_ROOM_ID:
+            return {...state, roomId: action.roomId}
 
         default:
             return state;

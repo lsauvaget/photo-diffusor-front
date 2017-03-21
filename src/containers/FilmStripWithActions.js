@@ -10,18 +10,10 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onMediumClick: (medium) => {
-            dispatch(selectMedium(medium))
-        },
-        toggleShowFilmStrip: () => {
-            dispatch(toggleFilmStripVisibility());
-        }
-    }
-}
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    { 
+        onMediumClick: selectMedium,
+        toggleShowFilmStrip: toggleFilmStripVisibility 
+    }
 )(FilmStrip);

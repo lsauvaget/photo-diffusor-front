@@ -19,6 +19,18 @@ const closeFlashCode = () => ({
     type: CLOSE_FLASH_CODE
 });
 
+const RECEIVE_ROOM_ID = 'RECEIVE_ROOM_ID';
+const receiveRoomId = (roomId) => ({
+    type: RECEIVE_ROOM_ID,
+    roomId
+});
+
+const JOIN_ROOM = 'JOIN_ROOM';
+const joinRoom = (roomId) => ({
+    type: JOIN_ROOM,
+    roomId
+});
+
 export default {
     ...actionsLightbox, 
     ...actionsGallery, 
@@ -28,6 +40,10 @@ export default {
     SHOW_FLASH_CODE,
     showFlashCode,
     CLOSE_FLASH_CODE,
-    closeFlashCode
+    closeFlashCode,
+    RECEIVE_ROOM_ID,
+    receiveRoomId,
+    JOIN_ROOM,
+    joinRoom
 };
 
