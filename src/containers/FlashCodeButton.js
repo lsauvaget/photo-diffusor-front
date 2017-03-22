@@ -2,15 +2,20 @@ import MobileButton from '../components/mobileButton/mobileButton.js';
 import actions from '../actions';
 import {connect} from 'react-redux';
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onButtonClick: () => {
-            dispatch(actions.showFlashCode())
-        },
-    }
+const mapStateToProps = (state) => ({
+    open: state.showFlashCode
+});
+
+const mapDispatchToProps = {
+    open: actions.showFlashCode,
+    close: actions.closeFlashCode
 }
 
+
 export default connect(
-    null,
-    mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps,
+    (stateProps, dispatchProps) => ({
+        onButtonClick: stateProps.open ? dispatchProps.close : dispatchProps.open
+    })
 )(MobileButton);
