@@ -1,7 +1,8 @@
 import FilmStrip from '../components/filmStrip/filmStrip.js';
-import {selectMedium} from '../actions/gallery.js';
 import {connect} from 'react-redux';
 import {toggleFilmStripVisibility} from '../actions/filmStrip.js';
+import action from '../actions';
+const {selectMediumAndEmit} = action;
 
 const mapStateToProps = (state) => {
     return {
@@ -10,10 +11,17 @@ const mapStateToProps = (state) => {
     }
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onMediumClick: (medium) => {
+            dispatch(selectMediumAndEmit(medium));
+        },
+        toggleShowFilmStrip: () => {
+            dispatch(toggleFilmStripVisibility());
+        }
+    }
+}
 export default connect(
     mapStateToProps,
-    { 
-        onMediumClick: selectMedium,
-        toggleShowFilmStrip: toggleFilmStripVisibility 
-    }
+    mapDispatchToProps
 )(FilmStrip);

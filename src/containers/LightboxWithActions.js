@@ -1,12 +1,12 @@
 import Lightbox from '../components/lightbox/Lightbox.js';
 import {
     closeLightbox,
-    loadNextMedium,
-    loadPrevMedium,
     imageLoadedInLightbox,
     imageLoadingStartInLightbox,
     toggleFullScreen
 } from '../actions/lightbox.js'
+import actions from '../actions';
+const {loadNextMediumAndEmit, loadPrevMediumAndEmit} = actions;
 import {connect} from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -26,10 +26,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(imageLoadedInLightbox());
         },
         loadNext: () => {
-            dispatch(loadNextMedium());
+            dispatch(loadNextMediumAndEmit());
         },
         loadPrev: () => {
-            dispatch(loadPrevMedium());
+            dispatch(loadPrevMediumAndEmit());
         },
         toggleFullScreen: () => {
             dispatch(toggleFullScreen());

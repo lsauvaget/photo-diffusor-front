@@ -1,6 +1,7 @@
 import Gallery from '../components/gallery/gallery.js';
-import {selectMedium} from '../actions/gallery.js';
 import {connect} from 'react-redux';
+import action from '../actions';
+const {selectMediumAndEmit} = action;
 
 const mapStateToProps = (state) => {
     return {
@@ -12,7 +13,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onMediumClick: (medium) => {
-            dispatch(selectMedium(medium));
+            dispatch(selectMediumAndEmit(medium));
         }
     }
 }

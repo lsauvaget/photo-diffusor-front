@@ -1,6 +1,7 @@
 import * as actionsLightbox from './lightbox.js';
 import * as actionsGallery from './gallery.js';
 import * as actionsFilmStrip from './filmStrip.js';
+import * as actionsIo from './io.js';
 
 
 const RECEIVE_MEDIA = 'RECEIVE_MEDIA';
@@ -31,6 +32,21 @@ const joinRoom = (roomId) => ({
     roomId
 });
 
+const selectMediumAndEmit = (medium) => dispatch => {
+    dispatch(actionsGallery.selectMedium(medium));
+    dispatch(actionsIo.ioSelectMedium(medium));
+};
+
+const loadNextMediumAndEmit = () => dispatch => {
+    dispatch(actionsLightbox.loadNextMedium());
+    dispatch(actionsIo.ioLoadNextMedium());
+};
+
+const loadPrevMediumAndEmit = () => dispatch => {
+    dispatch(actionsLightbox.loadPrevMedium());
+    dispatch(actionsIo.ioLoadPrevMedium());
+};
+
 export default {
     ...actionsLightbox, 
     ...actionsGallery, 
@@ -44,6 +60,9 @@ export default {
     RECEIVE_ROOM_ID,
     receiveRoomId,
     JOIN_ROOM,
-    joinRoom
+    joinRoom,
+    selectMediumAndEmit,
+    loadNextMediumAndEmit,
+    loadPrevMediumAndEmit
 };
 

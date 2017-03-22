@@ -1,8 +1,12 @@
 import { createStore, applyMiddleware } from 'redux'
 import reducers from '../reducers';
 import thunk from 'redux-thunk';
-import actions from "../actions";
-const {LOAD_PREV_IMAGE, LOAD_NEXT_IMAGE, SELECT_MEDIUM, JOIN_ROOM} = actions;
+import {
+    IO_LOAD_PREV_MEDIUM, 
+    IO_LOAD_NEXT_MEDIUM,
+    IO_SELECT_MEDIUM, 
+    IO_JOIN_ROOM
+} from '../actions/io.js';
 import socket from '../libs/socket.js';
 
 /**
@@ -22,16 +26,16 @@ const logger = store => next => action => {
  * Emit socket event on som hook
  */
 const socketMiddleware = store => next => action => {
-    if(action.type === LOAD_PREV_IMAGE) {
+    if(action.type === IO_LOAD_PREV_MEDIUM) {
         socket.emit('prev');
     }
-    if(action.type === LOAD_NEXT_IMAGE) {
+    if(action.type === IO_LOAD_NEXT_MEDIUM) {
         socket.emit('next');
     }
-    if(action.type === SELECT_MEDIUM) {
+    if(action.type === IO_SELECT_MEDIUM) {
         socket.emit('select', action.selectedMedium);
     }
-    if(action.type === JOIN_ROOM) {
+    if(action.type === IO_JOIN_ROOM) {
         socket.emit('joinRoom', action.roomId);
     }
   return next(action);
