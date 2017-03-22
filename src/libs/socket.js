@@ -4,6 +4,7 @@ export const socket = io(configs.socketUrl);
 
 import store from '../store';
 import actions from '../actions';
+import {ioJoinRoom} from '../actions/io.js';
 
 import {parseQuery} from './routeUtils.js';
 
@@ -12,21 +13,14 @@ socket.on('init', (imgs) => {
     store.dispatch(actions.receiveMedia(imgs));
     const query = parseQuery(window.location.search);
     if(query.room) {
-        store.dispatch(actions.joinRoom(query.room));
+        store.dispatch(ioJoinRoom(query.room));
     }
 });
 
-socket.on('next', () => {
-    store.dispatch(actions.loadNextMedium());
-});
-
-socket.on('prev', () => {
-    store.dispatch(actions.loadPrevMedium());
-});
-
-socket.on('select', (selectedMedium) => {
+socket.on('select', (data) => {
     store.dispatch(actions.toggleFullScreen());
-    store.dispatch(actions.selectMedium(selectedMedium));
+    store.dispatch(actions.closeFlashCode());
+    store.dispatch(actions.selectMedium(data.selectedMedium));
 });
 
 socket.on('roomId', (roomId) => {

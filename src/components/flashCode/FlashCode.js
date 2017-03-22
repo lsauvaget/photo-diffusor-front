@@ -23,6 +23,7 @@ class FlashCode extends Component {
 
     componentDidMount() {
         const {link} = this.props;
+        console.log(link)
         this.qrcode = new QRCode(this.$elem, {
             text: link,
             width: 256,

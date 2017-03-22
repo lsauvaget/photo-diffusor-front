@@ -37,14 +37,14 @@ const selectMediumAndEmit = (medium) => dispatch => {
     dispatch(actionsIo.ioSelectMedium(medium));
 };
 
-const loadNextMediumAndEmit = () => dispatch => {
+const loadNextMediumAndEmit = () => (dispatch, getState) => {
     dispatch(actionsLightbox.loadNextMedium());
-    dispatch(actionsIo.ioLoadNextMedium());
+    dispatch(actionsIo.ioSelectMedium(getState().selectedMedium));
 };
 
-const loadPrevMediumAndEmit = () => dispatch => {
+const loadPrevMediumAndEmit = () => (dispatch, getState) => {
     dispatch(actionsLightbox.loadPrevMedium());
-    dispatch(actionsIo.ioLoadPrevMedium());
+    dispatch(actionsIo.ioSelectMedium(getState().selectedMedium));
 };
 
 export default {

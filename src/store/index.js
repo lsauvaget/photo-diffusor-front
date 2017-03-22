@@ -2,8 +2,6 @@ import { createStore, applyMiddleware } from 'redux'
 import reducers from '../reducers';
 import thunk from 'redux-thunk';
 import {
-    IO_LOAD_PREV_MEDIUM, 
-    IO_LOAD_NEXT_MEDIUM,
     IO_SELECT_MEDIUM, 
     IO_JOIN_ROOM
 } from '../actions/io.js';
@@ -26,12 +24,6 @@ const logger = store => next => action => {
  * Emit socket event on som hook
  */
 const socketMiddleware = store => next => action => {
-    if(action.type === IO_LOAD_PREV_MEDIUM) {
-        socket.emit('prev');
-    }
-    if(action.type === IO_LOAD_NEXT_MEDIUM) {
-        socket.emit('next');
-    }
     if(action.type === IO_SELECT_MEDIUM) {
         socket.emit('select', action.selectedMedium);
     }
