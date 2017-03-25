@@ -20,6 +20,7 @@ class Lightbox extends Component {
         let imageClass = 'Lightbox__wrapper__img';
         imageClass += props.imageLoaded ? ' Lightbox__wrapper__img--loaded' : '' ;
         imageClass += props.fullScreen ? ' Lightbox__wrapper__img--fullScreen' : '';
+        const overlayClass = `Lightbox__overlay ${props.fullScreen ? 'Lightbox__overlay--fullScreen': ''}`
         return (
             <div className="Lightbox">
                 <TouchWrapper
@@ -47,10 +48,14 @@ class Lightbox extends Component {
                             </div>
                         </div>}
                         {!props.imageLoaded && <Loader/>}
-                        <img onClick={props.toggleFullScreen} onLoad={props.onImageLoaded} className={imageClass} src={`${configs.mediaUrl}${props.medium.fullSize}`} alt=""/>
+                        <img onClick={props.toggleFullScreen} 
+                            onLoad={props.onImageLoaded} 
+                            className={imageClass} 
+                            src={`${configs.mediaUrl}${props.medium.fullSize}`} 
+                            alt=""/>
                     </div>
                 </TouchWrapper>
-                <div onClick={props.onCloseClick} className="Lightbox__overlay"></div>
+                <div onClick={props.onCloseClick} className={overlayClass}></div>
                 <ScrollLock/>
             </div>
             )

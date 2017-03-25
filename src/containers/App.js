@@ -26,12 +26,14 @@ const App = ({selectedMedium, lightboxFullScreen, showFlashCode}) =>
         {showFlashCode &&
             <FlashCodeScreen/>
         }
-        <div className="App__mobileButton">
-            <FlashCodeButton/>
-        </div>
         {!lightboxFullScreen && !showFlashCode &&
-            <div className="App__filmStrip">
-                <FilmStripWithActions />
+            <div>
+                <div className="App__mobileButton">
+                    <FlashCodeButton/>
+                </div>
+                <div className="App__filmStrip">
+                    <FilmStripWithActions />
+                </div>
             </div>
         }
         <div className="App__gallery">

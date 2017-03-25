@@ -13,7 +13,7 @@ const FilmStrip = (props) => {
         </div>
         {media.length > 0 && media.map((medium, index) => 
         <div key={index} className="FilmStrip-wrapper__item">
-            <FilmStripItem thumbnail={medium.thumbnail} click={() => props.onMediumClick(medium)}/>
+            <FilmStripItem thumbnail={medium.thumbnail} onClick={() => props.onMediumClick(medium)}/>
         </div>
         )}
     </div>
@@ -21,7 +21,7 @@ const FilmStrip = (props) => {
 }
 
 const FilmStripItem = (props) => 
-        <div onClick={props.click} className="FilmStripItem">
+        <div onClick={props.onClick} className="FilmStripItem">
             <img className="FilmStripItem__img" src={`${configs.mediaUrl}${props.thumbnail}`} alt=""/>
         </div>
 

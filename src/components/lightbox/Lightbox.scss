@@ -72,6 +72,11 @@
         width: 100%;
         height: 100%;
         background-color: rgba(35, 35, 35, 0.8);
+        transition: background-color .3s ease-in-out;
+
+        &--fullScreen {
+            background-color: #151515;
+        }
     }
 }
 

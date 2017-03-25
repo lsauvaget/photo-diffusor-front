@@ -18,7 +18,7 @@ socket.on('init', (imgs) => {
 });
 
 socket.on('select', (data) => {
-    store.dispatch(actions.toggleFullScreen());
+    store.dispatch(actions.enableFullScreen());
     store.dispatch(actions.closeFlashCode());
     store.dispatch(actions.selectMedium(data.selectedMedium));
 });

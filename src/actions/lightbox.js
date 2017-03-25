@@ -8,6 +8,14 @@ export const TOGGLE_FULL_SCREEN_LIGHTBOX = 'TOGGLE_FULL_SCREEN_LIGHTBOX';
 export const IMAGE_LOADED_IN_LIGHTBOX = 'IMAGE_LOADED_IN_LIGHTBOX';
 export const IMAGE_LOADING_START_IN_LIGHTBOX = 'IMAGE_LOADING_START_IN_LIGHTBOX';
 
+export const enableFullScreen = () => ({
+    type: ENABLE_FULL_SCREEN
+});
+
+export const disableFullScreen = () => ({
+    type: DISABLE_FULL_SCREEN
+});
+
 export const closeLightbox = () => ({
     type: CLOSE_LIGHTBOX
 });

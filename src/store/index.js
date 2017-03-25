@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import reducers from '../reducers';
 import thunk from 'redux-thunk';
 import {
@@ -6,6 +6,8 @@ import {
     IO_JOIN_ROOM
 } from '../actions/io.js';
 import socket from '../libs/socket.js';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 /**
  * Logs all actions and states after they are dispatched.
@@ -34,5 +36,7 @@ const socketMiddleware = store => next => action => {
 }
 
 
-export default createStore(reducers, applyMiddleware(logger, thunk, socketMiddleware));
+export default createStore(reducers, composeEnhancers(
+    applyMiddleware(logger, thunk, socketMiddleware)
+));
 
