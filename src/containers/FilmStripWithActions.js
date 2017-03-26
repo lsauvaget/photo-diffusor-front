@@ -1,8 +1,6 @@
 import FilmStrip from '../components/filmStrip/filmStrip.js';
 import {connect} from 'react-redux';
-import {toggleFilmStripVisibility} from '../actions/filmStrip.js';
-import action from '../actions';
-const {selectMediumAndEmit} = action;
+import {selectMediumAndEmit, toggleFilmStripVisibility} from '../actions';
 
 const mapStateToProps = (state) => {
     return {

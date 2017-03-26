@@ -1,7 +1,6 @@
 import Gallery from '../components/gallery/gallery.js';
 import {connect} from 'react-redux';
-import action from '../actions';
-const {selectMediumAndEmit} = action;
+import {selectMediumAndEmit} from '../actions';
 
 const mapStateToProps = (state) => {
     return {

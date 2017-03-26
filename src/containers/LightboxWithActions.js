@@ -1,13 +1,13 @@
+import {connect} from 'react-redux';
 import Lightbox from '../components/lightbox/Lightbox.js';
 import {
     closeLightbox,
     imageLoadedInLightbox,
     imageLoadingStartInLightbox,
-    toggleFullScreen
-} from '../actions/lightbox.js'
-import actions from '../actions';
-const {loadNextMediumAndEmit, loadPrevMediumAndEmit} = actions;
-import {connect} from 'react-redux';
+    toggleFullScreen,
+    loadNextMediumAndEmit,
+    loadPrevMediumAndEmit
+} from '../actions';
 
 const mapStateToProps = (state) => {
     return {

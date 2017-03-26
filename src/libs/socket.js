@@ -3,14 +3,20 @@ import configs from '../configs';
 export const socket = io(configs.socketUrl);
 
 import store from '../store';
-import actions from '../actions';
-import {ioJoinRoom} from '../actions/io.js';
+import {
+    ioJoinRoom,
+    enableFullScreen,
+    selectMedium,
+    receiveMedia,
+    closeFlashCode,
+    receiveRoomId
+} from '../actions';
 
 import {parseQuery} from './routeUtils.js';
 
 
 socket.on('init', (imgs) => {
-    store.dispatch(actions.receiveMedia(imgs));
+    store.dispatch(receiveMedia(imgs));
     const query = parseQuery(window.location.search);
     if(query.room) {
         store.dispatch(ioJoinRoom(query.room));
@@ -18,13 +24,13 @@ socket.on('init', (imgs) => {
 });
 
 socket.on('select', (data) => {
-    store.dispatch(actions.enableFullScreen());
-    store.dispatch(actions.closeFlashCode());
-    store.dispatch(actions.selectMedium(data.selectedMedium));
+    store.dispatch(enableFullScreen());
+    store.dispatch(closeFlashCode());
+    store.dispatch(selectMedium(data.selectedMedium));
 });
 
 socket.on('roomId', (roomId) => {
-   store.dispatch(actions.receiveRoomId(roomId));
+   store.dispatch(receiveRoomId(roomId));
 });
 
 //actions

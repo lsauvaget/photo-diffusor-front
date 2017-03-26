@@ -1,21 +1,16 @@
-import MobileButton from '../components/mobileButton/mobileButton.js';
-import actions from '../actions';
 import {connect} from 'react-redux';
+import MobileButton from '../components/mobileButton/mobileButton.js';
+import {fetchRoomShortLink} from '../actions';
 
-const mapStateToProps = (state) => ({
-    open: state.showFlashCode
-});
-
-const mapDispatchToProps = {
-    open: actions.showFlashCode,
-    close: actions.closeFlashCode
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onButtonClick: () => {
+            dispatch(fetchRoomShortLink())
+        },
+    }
 }
 
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-    (stateProps, dispatchProps) => ({
-        onButtonClick: stateProps.open ? dispatchProps.close : dispatchProps.open
-    })
+    null,
+    mapDispatchToProps
 )(MobileButton);

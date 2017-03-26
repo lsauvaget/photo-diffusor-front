@@ -1,68 +1,43 @@
-import * as actionsLightbox from './lightbox.js';
-import * as actionsGallery from './gallery.js';
-import * as actionsFilmStrip from './filmStrip.js';
-import * as actionsIo from './io.js';
+export * from './filmStrip.js';
+export * from './flashCode.js';
+export * from './io.js';
+export * from './gallery.js';
+export * from './lightbox.js';
 
+export const RECEIVE_MEDIA = 'RECEIVE_MEDIA';
+export const RECEIVE_ROOM_ID = 'RECEIVE_ROOM_ID';
+export const JOIN_ROOM = 'JOIN_ROOM';
 
-const RECEIVE_MEDIA = 'RECEIVE_MEDIA';
-const receiveMedia = (media) => ({
+export const receiveMedia = (media) => ({
     type: RECEIVE_MEDIA,
     media
 });
 
-const SHOW_FLASH_CODE = 'SHOW_FLASH_CODE';
-const showFlashCode = () => ({
-    type: SHOW_FLASH_CODE
-});
-
-const CLOSE_FLASH_CODE = 'CLOSE_FLASH_CODE';
-const closeFlashCode = () => ({
-    type: CLOSE_FLASH_CODE
-});
-
-const RECEIVE_ROOM_ID = 'RECEIVE_ROOM_ID';
-const receiveRoomId = (roomId) => ({
+export const receiveRoomId = (roomId) => ({
     type: RECEIVE_ROOM_ID,
     roomId
 });
 
-const JOIN_ROOM = 'JOIN_ROOM';
-const joinRoom = (roomId) => ({
+export const joinRoom = (roomId) => ({
     type: JOIN_ROOM,
     roomId
 });
 
-const selectMediumAndEmit = (medium) => dispatch => {
+import * as actionsGallery from './gallery.js';
+import * as actionsIo from './io.js';
+import * as actionsLightbox from './lightbox.js';
+
+export const selectMediumAndEmit = (medium) => dispatch => {
     dispatch(actionsGallery.selectMedium(medium));
     dispatch(actionsIo.ioSelectMedium(medium));
 };
 
-const loadNextMediumAndEmit = () => (dispatch, getState) => {
+export const loadNextMediumAndEmit = () => (dispatch, getState) => {
     dispatch(actionsLightbox.loadNextMedium());
     dispatch(actionsIo.ioSelectMedium(getState().selectedMedium));
 };
 
-const loadPrevMediumAndEmit = () => (dispatch, getState) => {
+export const loadPrevMediumAndEmit = () => (dispatch, getState) => {
     dispatch(actionsLightbox.loadPrevMedium());
     dispatch(actionsIo.ioSelectMedium(getState().selectedMedium));
 };
-
-export default {
-    ...actionsLightbox, 
-    ...actionsGallery, 
-    ...actionsFilmStrip,
-    RECEIVE_MEDIA,
-    receiveMedia,
-    SHOW_FLASH_CODE,
-    showFlashCode,
-    CLOSE_FLASH_CODE,
-    closeFlashCode,
-    RECEIVE_ROOM_ID,
-    receiveRoomId,
-    JOIN_ROOM,
-    joinRoom,
-    selectMediumAndEmit,
-    loadNextMediumAndEmit,
-    loadPrevMediumAndEmit
-};
-

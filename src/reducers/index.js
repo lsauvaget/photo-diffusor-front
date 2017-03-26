@@ -1,4 +1,4 @@
-import actions from '../actions';
+import * as actions from '../actions';
 
 const initialState = {
     filmStripOpen: false,
@@ -8,6 +8,7 @@ const initialState = {
     imageLoadedInLightbox: false,
     showFlashCode: false,
     flashCodeLink: 'test',
+    flashCodeShortLink: null,
     roomId: null
 };
 
@@ -38,7 +39,7 @@ export default (state = initialState, action) => {
 
         //Lightbox
         case actions.CLOSE_LIGHTBOX:
-            return {...state, selectedMedium: null};
+            return {...state, selectedMedium: null, lightboxFullScreen: false};
 
         case actions.TOGGLE_FULL_SCREEN_LIGHTBOX:
             return {...state, lightboxFullScreen: !state.lightboxFullScreen}
@@ -78,7 +79,10 @@ export default (state = initialState, action) => {
             return {...state, showFlashCode: false};
 
         case actions.RECEIVE_ROOM_ID:
-            return {...state, roomId: action.roomId}
+            return {...state, roomId: action.roomId};
+
+        case actions.RECEIVE_SHORT_LINK:
+            return {...state, flashCodeShortLink: action.flashCodeShortLink};
 
         default:
             return state;

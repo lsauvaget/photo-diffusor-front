@@ -6,7 +6,8 @@ import QRCode from 'davidshimjs-qrcodejs';
 class FlashCode extends Component {
     static propTypes = {
         link: PropTypes.string.isRequired,
-        closeFlashCode: PropTypes.func.isRequired
+        closeFlashCode: PropTypes.func.isRequired,
+        shortLink: PropTypes.string.isRequired
     }
 
     constructor(props) {
@@ -39,11 +40,14 @@ class FlashCode extends Component {
     }
 
     render() {
-        const {closeFlashCode} = this.props;
+        const {closeFlashCode, shortLink} = this.props;
         return (
             <div className="FlashCode">
                 <div className="FlashCode__wrapper">
-                    <div className="FlashCode__wrapper" ref={$elem => this.$elem = $elem}></div>
+                    <div className="FlashCode__wrapper__item" ref={$elem => this.$elem = $elem}></div>
+                    <div className="FlashCode__wrapper__shortLink">
+                        {shortLink}
+                    </div>
                 </div>
                 <div onClick={closeFlashCode} className="FlashCode__overlay"></div>
                 <ScrollLock/>
