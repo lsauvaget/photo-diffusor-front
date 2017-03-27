@@ -9,13 +9,19 @@ const initialState = {
     showFlashCode: false,
     flashCodeLink: 'test',
     flashCodeShortLink: null,
-    roomId: null
+    roomId: null,
+    welcomePopinOpen: true
 };
 
 //filmStrip
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        //WelcomePopin
+        case actions.CLOSE_WELCOME_POPIN:
+            return {...state, welcomePopinOpen: false};
+        case actions.OPEN_WELCOME_POPIN:
+            return {...state, welcomePopinOpen: true};
         //FilmStrip
         case actions.OPEN_FILMSTRIP:
             return {...state, filmStripOpen: true};
@@ -73,7 +79,7 @@ export default (state = initialState, action) => {
 
         //FlashCode
         case actions.SHOW_FLASH_CODE:
-            return {...state, showFlashCode: true};
+            return {...state, showFlashCode: true, welcomePopinOpen: false};
 
         case actions.CLOSE_FLASH_CODE:
             return {...state, showFlashCode: false};

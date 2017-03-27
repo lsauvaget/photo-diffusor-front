@@ -3,6 +3,7 @@ export * from './flashCode.js';
 export * from './io.js';
 export * from './gallery.js';
 export * from './lightbox.js';
+export * from './welcomePopin.js';
 
 export const RECEIVE_MEDIA = 'RECEIVE_MEDIA';
 export const RECEIVE_ROOM_ID = 'RECEIVE_ROOM_ID';
