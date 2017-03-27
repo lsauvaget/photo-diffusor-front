@@ -6,18 +6,9 @@ const FilmStrip = (props) => {
     const media = props.media;
     const isOpen = props.isOpen;
     const filmStripClass = 'FilmStrip ' + (isOpen ? 'FilmStrip--open' : 'FilmStrip--close');
-    let mouseInAreaTimeout = null;
     return (
     <div className={filmStripClass}>
-        <div draggable="true" className="FilmStrip__toggle"
-            onTouchStart={props.toggleShowFilmStrip} 
-            onMouseLeave={() => clearTimeout(mouseInAreaTimeout)}
-            onMouseEnter={() => {
-                if(isOpen) 
-                    props.toggleShowFilmStrip();
-                else 
-                    mouseInAreaTimeout = setTimeout(props.toggleShowFilmStrip, 200);
-            }}> 
+        <div draggable="true" className="FilmStrip__toggle" onTouchStart={props.toggleShowFilmStrip} onMouseEnter={props.toggleShowFilmStrip}> 
             <Toggle/>
         </div>
         {media.length > 0 && media.map((medium, index) => 

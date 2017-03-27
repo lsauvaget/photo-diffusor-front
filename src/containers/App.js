@@ -7,9 +7,6 @@ import LightboxWithActions from './LightboxWithActions.js';
 import FilmStripWithActions from './FilmStripWithActions.js';
 import FlashCodeButton from './FlashCodeButton.js';
 import FlashCodeScreen from './FlashCodeScreen.js';
-
-import Home from '../components/home/home.js';
-
 import './App.css';
 
 const mapStateToProps = (state) => {
@@ -22,28 +19,26 @@ const mapStateToProps = (state) => {
 
 const App = ({selectedMedium, lightboxFullScreen, showFlashCode}) =>
     <div className="App">
-        <Home>
-            {selectedMedium && 
-                <div className="App__lightbox">
-                    <LightboxWithActions />
-                </div>}
-            {showFlashCode &&
-                <FlashCodeScreen/>
-            }
-            {!lightboxFullScreen && !showFlashCode &&
-                <div>
-                    <div className="App__mobileButton">
-                        <FlashCodeButton/>
-                    </div>
-                    <div className="App__filmStrip">
-                        <FilmStripWithActions />
-                    </div>
+        {selectedMedium && 
+            <div className="App__lightbox">
+                <LightboxWithActions />
+            </div>}
+        {showFlashCode &&
+            <FlashCodeScreen/>
+        }
+        {!lightboxFullScreen && !showFlashCode &&
+            <div>
+                <div className="App__mobileButton">
+                    <FlashCodeButton/>
                 </div>
-            }
-            <div className="App__gallery">
-                <Gallery />
+                <div className="App__filmStrip">
+                    <FilmStripWithActions />
+                </div>
             </div>
-        </Home>
+        }
+        <div className="App__gallery">
+            <Gallery />
+        </div>
     </div>
 
 
