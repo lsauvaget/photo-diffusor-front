@@ -7,7 +7,9 @@ const initialState = {
     lightboxFullScreen: false,
     imageLoadedInLightbox: false,
     showFlashCode: false,
-    flashCodeLink: 'test',
+    flashCodeLink: '',
+    showFlashCodeButton: false,
+    showFilmStripButton: false,
     flashCodeShortLink: null,
     roomId: null,
     welcomePopinOpen: true
@@ -19,9 +21,20 @@ export default (state = initialState, action) => {
     switch (action.type) {
         //WelcomePopin
         case actions.CLOSE_WELCOME_POPIN:
-            return {...state, welcomePopinOpen: false};
+            return {
+                ...state, 
+                welcomePopinOpen: false, 
+                showFlashCodeButton: true,
+                showFilmStripButton: true
+            };
         case actions.OPEN_WELCOME_POPIN:
-            return {...state, welcomePopinOpen: true};
+            return {
+                ...state, 
+                welcomePopinOpen: true, 
+                showFlashCodeButton: false,
+                showFilmStripButton: false
+            };
+
         //FilmStrip
         case actions.OPEN_FILMSTRIP:
             return {...state, filmStripOpen: true};
@@ -48,16 +61,29 @@ export default (state = initialState, action) => {
             return {...state, selectedMedium: null, lightboxFullScreen: false};
 
         case actions.TOGGLE_FULL_SCREEN_LIGHTBOX:
-            return {...state, lightboxFullScreen: !state.lightboxFullScreen}
+            const isFullScreen = state.lightboxFullScreen;
+            return {
+                ...state, 
+                lightboxFullScreen: !isFullScreen,
+                showFlashCodeButton: isFullScreen,
+                showFilmStripButton: isFullScreen
+            }
 
         case actions.ENABLE_FULL_SCREEN:
-            return {...state, lightboxFullScreen: true};
+            return {
+                ...state, 
+                lightboxFullScreen: true, 
+                showFlashCodeButton: false,
+                showFilmStripButton: false
+            };
 
         case actions.DISABLE_FULL_SCREEN: 
-            return {...state, lightboxFullScreen: false};
-
-        case actions.TOGGLE_FULL_SCREEN: 
-            return {...state, lightboxFullScreen: !state.fullScreen};
+            return {
+                ...state, 
+                lightboxFullScreen: false, 
+                showFlashCodeButton: true,
+                showFilmStripButton: true
+            };
 
         case actions.IMAGE_LOADED_IN_LIGHTBOX: 
             return {...state, imageLoadedInLightbox: true};

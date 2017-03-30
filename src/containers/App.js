@@ -18,32 +18,47 @@ const mapStateToProps = (state) => {
         selectedMedium: state.selectedMedium,
         lightboxFullScreen: state.lightboxFullScreen,
         showFlashCode: state.showFlashCode,
-        welcomePopinOpen: state.welcomePopinOpen
+        welcomePopinOpen: state.welcomePopinOpen,
+        showFlashCodeButton: state.showFlashCodeButton,
+        showFilmStripButton: state.showFilmStripButton
     }
 };
 
-const App = ({dispatch, selectedMedium, lightboxFullScreen, showFlashCode, welcomePopinOpen}) =>
+const App = ({
+    dispatch, 
+    selectedMedium, 
+    lightboxFullScreen, 
+    showFlashCode, 
+    showFlashCodeButton,
+    showFilmStripButton,
+    welcomePopinOpen}) =>
     <div className="App">
         {welcomePopinOpen &&
             <WelcomePopin onCloseClick={() => dispatch(closeWelcomePopin())}/>
         }
+
         {selectedMedium && 
             <div className="App__lightbox">
                 <LightboxWithActions />
             </div>}
+
         {showFlashCode &&
             <FlashCodeScreen/>
         }
-        {!lightboxFullScreen && !showFlashCode &&
+
+        {showFlashCodeButton &&
+            <div className="App__mobileButton">
+                <FlashCodeButton/>
+            </div>}
+
+        {showFilmStripButton &&
             <div>
-                <div className="App__mobileButton">
-                    <FlashCodeButton/>
-                </div>
                 <div className="App__filmStrip">
                     <FilmStripWithActions />
                 </div>
             </div>
         }
+
         <div className="App__gallery">
             <Gallery />
         </div>
