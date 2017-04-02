@@ -33,9 +33,11 @@ const App = ({
     showFilmStripButton,
     welcomePopinOpen}) =>
     <div className="App">
-        {welcomePopinOpen &&
-            <WelcomePopin onCloseClick={() => dispatch(closeWelcomePopin())}/>
-        }
+
+        <WelcomePopin 
+            onCloseClick={() => dispatch(closeWelcomePopin())}
+            isOpen={welcomePopinOpen}
+        />
 
         {selectedMedium && 
             <div className="App__lightbox">

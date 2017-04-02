@@ -2,16 +2,23 @@ import React, {PropTypes} from 'react';
 import './welcomePopin.css';
 import ScrollLock from 'react-scrolllock';
 
-const WelcomePopin = ({onCloseClick}) => 
-    <div className="WelcomePopin">
-        <div className="WelcomePopin__wrapper">
-            <div className="WelcomePopin__wrapper__title">
-                Gallery
+const WelcomePopin = ({onCloseClick, isOpen}) =>  {
+    const welcomePopinClass = `WelcomePopin ${isOpen ?  '' : 'WelcomePopin--close'}`;
+    const wrapperClass = `WelcomePopin__wrapper ${isOpen ? '' : 'WelcomePopin__wrapper--close'}`;
+    const overlayClass = `WelcomePopin__overlay ${isOpen ? '' : 'WelcomePopin__overlay--close'}`;
+    let $elm;
+    return (
+        <div ref={$el => $elm = $el} className={welcomePopinClass}>
+            <div className={wrapperClass}>
+                <div className="WelcomePopin__wrapper__title">
+                    Gallery
+                </div>
             </div>
-        </div>
-        <div onClick={onCloseClick} className="WelcomePopin__overlay"></div>
-        <ScrollLock/>
-    </div>
+            <div onAnimationEnd={e => $elm.style.display = 'none'} 
+                onClick={onCloseClick} className={overlayClass}></div>
+            {isOpen && <ScrollLock/>}
+        </div>);
+}
 
 WelcomePopin.propTypes = {
     onCloseClick: PropTypes.func.isRequired,
