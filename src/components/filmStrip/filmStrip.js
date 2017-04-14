@@ -2,18 +2,20 @@ import React from 'react';
 import './filmStrip.css';
 import configs from '../../configs';
 
-const FilmStrip = (props) => {
-    const media = props.media;
-    const isOpen = props.isOpen;
+const FilmStrip = ({media, isOpen, closeFilmStrip, openFilmStrip, onMediumClick}) => {
     const filmStripClass = 'FilmStrip ' + (isOpen ? 'FilmStrip--open' : 'FilmStrip--close');
+    const toggleFilmStripOpening = () => isOpen ? closeFilmStrip() : openFilmStrip();
     return (
     <div className={filmStripClass}>
-        <div draggable="true" className="FilmStrip__toggle" onTouchStart={props.toggleShowFilmStrip} onMouseEnter={props.toggleShowFilmStrip}> 
+        <div draggable="true" 
+            className="FilmStrip__toggle" 
+            onTouchStart={toggleFilmStripOpening} 
+            onMouseEnter={toggleFilmStripOpening}> 
             <Toggle/>
         </div>
         {media.length > 0 && media.map((medium, index) => 
         <div key={index} className="FilmStrip-wrapper__item">
-            <FilmStripItem thumbnail={medium.thumbnail} onClick={() => props.onMediumClick(medium)}/>
+            <FilmStripItem thumbnail={medium.thumbnail} onClick={() => onMediumClick(medium)}/>
         </div>
         )}
     </div>

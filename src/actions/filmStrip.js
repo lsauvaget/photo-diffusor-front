@@ -1,7 +1,20 @@
 export const OPEN_FILMSTRIP = 'OPEN_FILMSTRIP';
 export const CLOSE_FILMSTRIP = 'CLOSE_FILMSTRIP';
-export const TOGGLE_FILMSTRIP_VISIBILITY = 'TOGGLE_FILMSTRIP_VISIBILITY';
+export const SHOW_FILMSTRIP_BUTTON = 'SHOW_FILMSTRIP_BUTTON';
+export const HIDE_FILMSTRIP_BUTTON = 'CLOSE_FILMSTRIP_BUTTON';
 
-export const toggleFilmStripVisibility = () => ({
-    type: TOGGLE_FILMSTRIP_VISIBILITY
+export const openFilmStrip = () => ({
+    type: OPEN_FILMSTRIP
+});
+
+export const closeFilmStrip = () => ({
+    type: CLOSE_FILMSTRIP
+});
+
+export const showFilmStripButton = () => ({
+    type: SHOW_FILMSTRIP_BUTTON
+});
+
+export const hideFilmStripButton = () => ({
+    type: HIDE_FILMSTRIP_BUTTON
 });

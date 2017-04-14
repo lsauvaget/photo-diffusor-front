@@ -13,47 +13,56 @@ import './App.css';
 
 import {closeWelcomePopin} from '../actions';
 
+import {
+    getLightboxUi, 
+    getFlashCodeUi, 
+    getWelcomePopinUi, 
+    getFilmStripUi,
+    getFlashCodeButtonUi,
+    getData
+} from '../reducers';
+
 const mapStateToProps = (state) => {
     return {
-        selectedMedium: state.selectedMedium,
-        lightboxFullScreen: state.lightboxFullScreen,
-        showFlashCode: state.showFlashCode,
-        welcomePopinOpen: state.welcomePopinOpen,
-        showFlashCodeButton: state.showFlashCodeButton,
-        showFilmStripButton: state.showFilmStripButton
+        lightboxUi: getLightboxUi(state),
+        flashCodeUi: getFlashCodeUi(state),
+        welcomePopinUi: getWelcomePopinUi(state),
+        filmStripUi: getFilmStripUi(state),
+        flashCodeButtonUi: getFlashCodeButtonUi(state),
+        data: getData(state)
     }
 };
 
 const App = ({
     dispatch, 
-    selectedMedium, 
-    lightboxFullScreen, 
-    showFlashCode, 
-    showFlashCodeButton,
-    showFilmStripButton,
-    welcomePopinOpen}) =>
+    lightboxUi, 
+    flashCodeUi, 
+    welcomePopinUi,
+    flashCodeButtonUi,
+    data,
+    filmStripUi}) =>
     <div className="App">
 
         <WelcomePopin 
             onCloseClick={() => dispatch(closeWelcomePopin())}
-            isOpen={welcomePopinOpen}
+            isOpen={welcomePopinUi.open}
         />
 
-        {selectedMedium && 
-            <div className="App__lightbox">
-                <LightboxWithActions />
-            </div>}
+        <div className="App__lightbox">
+            <LightboxWithActions />
+        </div>
 
-        {showFlashCode &&
+        {flashCodeUi.show &&
             <FlashCodeScreen/>
         }
 
-        {showFlashCodeButton &&
+        {flashCodeButtonUi.show &&
             <div className="App__mobileButton">
                 <FlashCodeButton/>
-            </div>}
+            </div>
+        }
 
-        {showFilmStripButton &&
+        {filmStripUi.showButton &&
             <div>
                 <div className="App__filmStrip">
                     <FilmStripWithActions />

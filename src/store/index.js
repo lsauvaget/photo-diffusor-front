@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import {
     IO_SELECT_MEDIUM, 
     IO_JOIN_ROOM
-} from '../actions/io.js';
+} from '../actions';
 import socket from '../libs/socket.js';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,19 +1,31 @@
+import React from 'react';
 import {connect} from 'react-redux';
 import Lightbox from '../components/lightbox/Lightbox.js';
 import {
     closeLightbox,
     imageLoadedInLightbox,
     imageLoadingStartInLightbox,
-    toggleFullScreen,
+    enableFullScreen,
+    disableFullScreen,
     loadNextMediumAndEmit,
-    loadPrevMediumAndEmit
+    loadPrevMediumAndEmit,
+    hideFlashCodeButton,
+    showFlashCodeButton,
+    showFilmStripButton,
+    hideFilmStripButton,
+    unselectMedium
 } from '../actions';
 
+import {getData, getLightboxUi} from '../reducers';
+
 const mapStateToProps = (state) => {
+    const {selectedMedium} = getData(state);
+    const {imageLoaded, fullScreen, open} = getLightboxUi(state);
     return {
-        medium: state.selectedMedium,
-        imageLoaded: state.imageLoadedInLightbox,
-        fullScreen: state.lightboxFullScreen
+        medium: selectedMedium,
+        imageLoaded,
+        open,
+        fullScreen
     }
 };
 
@@ -21,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onCloseClick: () => {
             dispatch(closeLightbox());
+            dispatch(showFlashCodeButton());
+            dispatch(unselectMedium());
+            dispatch(showFilmStripButton());
         },
         onImageLoaded: () => {
             dispatch(imageLoadedInLightbox());
@@ -31,8 +46,15 @@ const mapDispatchToProps = (dispatch) => {
         loadPrev: () => {
             dispatch(loadPrevMediumAndEmit());
         },
-        toggleFullScreen: () => {
-            dispatch(toggleFullScreen());
+        enableFullScreen: () => {
+            dispatch(enableFullScreen());
+            dispatch(hideFlashCodeButton());
+            dispatch(hideFilmStripButton());
+        },
+        disableFullScreen: () => {
+            dispatch(disableFullScreen());
+            dispatch(showFlashCodeButton());
+            dispatch(showFilmStripButton());
         },
         onImageLoadingStart: () => {
             dispatch(imageLoadingStartInLightbox());
@@ -43,5 +65,10 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Lightbox);
+)((props) => {
+    if(props.medium && props.open) {
+        return <Lightbox {...props}/>;
+    }
+    return null;
+});
 

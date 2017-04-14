@@ -14,6 +14,7 @@ const WelcomePopin = ({onCloseClick, isOpen}) =>  {
                     Gallery
                 </div>
             </div>
+
             <div onAnimationEnd={e => $elm.style.display = 'none'} 
                 onClick={onCloseClick} className={overlayClass}></div>
             {isOpen && <ScrollLock/>}
@@ -22,6 +23,7 @@ const WelcomePopin = ({onCloseClick, isOpen}) =>  {
 
 WelcomePopin.propTypes = {
     onCloseClick: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired
 }
 
 export default WelcomePopin;

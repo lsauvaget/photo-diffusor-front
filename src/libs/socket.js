@@ -9,7 +9,8 @@ import {
     selectMedium,
     receiveMedia,
     closeFlashCode,
-    receiveRoomId
+    receiveRoomId,
+    openLightbox
 } from '../actions';
 
 import {parseQuery} from './routeUtils.js';
@@ -27,23 +28,12 @@ socket.on('select', (data) => {
     store.dispatch(enableFullScreen());
     store.dispatch(closeFlashCode());
     store.dispatch(selectMedium(data.selectedMedium));
+    store.dispatch(openLightbox());
 });
 
 socket.on('roomId', (roomId) => {
    store.dispatch(receiveRoomId(roomId));
 });
-
-//actions
-//const fetchRoomId = () => {
-    //return dispatch => {
-        //socket.emit('fetchRoomId');
-        //const fn = roomId => {
-            //dispatch(action.receiveRoomId(roomId));
-            //socket.off('fetchRoomId', fn);
-        //}
-        //socket.on('roomId', fn);
-    //}
-//}
 
 export default socket;
 

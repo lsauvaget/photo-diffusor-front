@@ -1,18 +1,23 @@
 import Gallery from '../components/gallery/gallery.js';
 import {connect} from 'react-redux';
-import {selectMediumAndEmit} from '../actions';
+import {
+    selectMedium, 
+    openLightbox,
+    ioSelectMedium
+} from '../actions';
+import {getData} from '../reducers';
 
 const mapStateToProps = (state) => {
-    return {
-        media: state.media,
-        selectedMedium: state.selectedMedium
-    };
+    const {media, selectedMedium} = getData(state);
+    return { media, selectedMedium };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onMediumClick: (medium) => {
-            dispatch(selectMediumAndEmit(medium));
+            dispatch(selectMedium(medium));
+            dispatch(ioSelectMedium(medium));
+            dispatch(openLightbox());
         }
     }
 }

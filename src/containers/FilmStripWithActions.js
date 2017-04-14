@@ -1,11 +1,12 @@
 import FilmStrip from '../components/filmStrip/filmStrip.js';
 import {connect} from 'react-redux';
-import {selectMediumAndEmit, toggleFilmStripVisibility} from '../actions';
+import {selectMediumAndEmit, openFilmStrip, closeFilmStrip, openLightbox} from '../actions';
+import {getFilmStripUi, getData} from '../reducers';
 
 const mapStateToProps = (state) => {
     return {
-        isOpen: state.filmStripOpen,
-        media: state.media
+        isOpen: getFilmStripUi(state).open,
+        media: getData(state).media
     }
 };
 
@@ -13,9 +14,13 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onMediumClick: (medium) => {
             dispatch(selectMediumAndEmit(medium));
+            dispatch(openLightbox());
         },
-        toggleShowFilmStrip: () => {
-            dispatch(toggleFilmStripVisibility());
+        closeFilmStrip: () => {
+            dispatch(closeFilmStrip());
+        },
+        openFilmStrip: () => {
+            dispatch(openFilmStrip());
         }
     }
 }

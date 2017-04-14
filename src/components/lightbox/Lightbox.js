@@ -10,7 +10,7 @@ import KeyDown from '../KeyDown.js';
 class Lightbox extends Component {
 
     componentWillReceiveProps(props) {
-        if(props.medium !== this.props.medium) {
+        if(props.medium.id  !== this.props.medium.id) {
             props.onImageLoadingStart();
         } 
     }
@@ -26,7 +26,6 @@ class Lightbox extends Component {
                 <TouchWrapper
                     moveLeft={props.loadPrev}
                     moveRight={props.loadNext} >
-                
                     <KeyDown
                         keyCode="37"
                         toTrigger={props.loadPrev} />
@@ -48,7 +47,9 @@ class Lightbox extends Component {
                             </div>
                         </div>}
                         {!props.imageLoaded && <Loader/>}
-                        <img onClick={props.toggleFullScreen} 
+                        <img onClick={() => {
+                            props.fullScreen ? props.disableFullScreen() : props.enableFullScreen() 
+                            }}
                             onLoad={props.onImageLoaded} 
                             className={imageClass} 
                             src={`${configs.mediaUrl}${props.medium.fullSize}`} 
