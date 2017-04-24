@@ -1,11 +1,8 @@
 import Gallery from '../components/gallery/gallery.js';
 import {connect} from 'react-redux';
-import {
-    selectMedium, 
-    openLightbox,
-    ioSelectMedium
-} from '../actions';
-import {getData} from '../reducers';
+import {getData} from '../modules';
+import { selectMedium, ioSelectMedium } from '../modules/data.js';
+import { openLightbox } from '../modules/lightbox.js';
 
 const mapStateToProps = (state) => {
     const {media, selectedMedium} = getData(state);

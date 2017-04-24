@@ -1,10 +1,33 @@
+import {getData} from './index.js';
 import axios from 'axios';
 import config from '../configs';
-import {getData} from '../reducers';
 
 export const SHOW_FLASH_CODE = 'SHOW_FLASH_CODE';
 export const CLOSE_FLASH_CODE = 'CLOSE_FLASH_CODE';
 export const RECEIVE_SHORT_LINK = 'RECEIVE_SHORT_LINK';
+
+const initialState = {
+    link: '',
+    shortLink: '',
+    show: false
+};
+
+export default (state = initialState, action) => {
+    switch (action.type) {
+            //FlashCode
+        case SHOW_FLASH_CODE:
+            return {...state, show: true};
+
+        case CLOSE_FLASH_CODE:
+            return {...state, show: false};
+
+        case RECEIVE_SHORT_LINK:
+            return {...state, shortLink: action.flashCodeShortLink};
+
+        default:
+            return state;
+    }
+}
 
 export const receiveShortLink = (link) => ({
     type: RECEIVE_SHORT_LINK,

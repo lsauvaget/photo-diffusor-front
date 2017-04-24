@@ -1,7 +1,7 @@
-import {closeFlashCode} from '../actions';
 import FlashCode from '../components/flashCode/FlashCode.js';
 import {connect} from 'react-redux';
-import {getFlashCodeUi, getData} from '../reducers';
+import {getFlashCodeUi, getData} from '../modules';
+import {closeFlashCode} from '../modules/flashCode.js';
 
 const mapStateToProps = (state) => {
     const {shortLink} = getFlashCodeUi(state);

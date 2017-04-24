@@ -3,15 +3,9 @@ import configs from '../configs';
 export const socket = io(configs.socketUrl);
 
 import store from '../store';
-import {
-    ioJoinRoom,
-    enableFullScreen,
-    selectMedium,
-    receiveMedia,
-    closeFlashCode,
-    receiveRoomId,
-    openLightbox
-} from '../actions';
+import { closeFlashCode } from '../modules/flashCode.js';
+import { selectMedium, receiveMedia, ioJoinRoom, receiveRoomId} from '../modules/data.js';
+import { enableFullScreen, openLightbox, } from '../modules/lightbox.js';
 
 import {parseQuery} from './routeUtils.js';
 

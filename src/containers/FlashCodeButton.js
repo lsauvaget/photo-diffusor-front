@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import MobileButton from '../components/mobileButton/mobileButton.js';
-import {fetchRoomShortLink} from '../actions';
+import {fetchRoomShortLink} from '../modules/flashCode.js';
 
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -1,7 +1,9 @@
 import FilmStrip from '../components/filmStrip/filmStrip.js';
 import {connect} from 'react-redux';
-import {selectMediumAndEmit, openFilmStrip, closeFilmStrip, openLightbox} from '../actions';
-import {getFilmStripUi, getData} from '../reducers';
+import {openFilmStrip, closeFilmStrip} from '../modules/filmStrip.js';
+import {selectMediumAndEmit} from '../modules/data.js';
+import {openLightbox} from '../modules/lightbox.js';
+import {getFilmStripUi, getData} from '../modules';
 
 const mapStateToProps = (state) => {
     return {

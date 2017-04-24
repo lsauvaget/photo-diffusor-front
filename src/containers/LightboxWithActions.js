@@ -7,21 +7,37 @@ import {
     imageLoadingStartInLightbox,
     enableFullScreen,
     disableFullScreen,
-    loadNextMediumAndEmit,
-    loadPrevMediumAndEmit,
+} from '../modules/lightbox.js';
+
+import {
+    selectMediumAndEmit,
+    unselectMedium,
+    getNextMedium, 
+    getPrevMedium
+} from '../modules/data.js';
+
+import {
     hideFlashCodeButton,
     showFlashCodeButton,
+} from '../modules/flashCodeButton.js';
+
+import {
     showFilmStripButton,
     hideFilmStripButton,
-    unselectMedium
-} from '../actions';
+} from '../modules/filmStrip.js';
 
-import {getData, getLightboxUi} from '../reducers';
+import {getData, getLightboxUi} from '../modules';
 
 const mapStateToProps = (state) => {
-    const {selectedMedium} = getData(state);
-    const {imageLoaded, fullScreen, open} = getLightboxUi(state);
+    const data = getData(state);
+    const {selectedMedium} = data;
+    console.log(data.selectedMedium)
+    const nextMedium = getNextMedium(data);
+    const prevMedium = getPrevMedium(data);
+    const { imageLoaded, fullScreen, open } = getLightboxUi(state);
     return {
+        nextMedium,
+        prevMedium,
         medium: selectedMedium,
         imageLoaded,
         open,
@@ -40,11 +56,8 @@ const mapDispatchToProps = (dispatch) => {
         onImageLoaded: () => {
             dispatch(imageLoadedInLightbox());
         },
-        loadNext: () => {
-            dispatch(loadNextMediumAndEmit());
-        },
-        loadPrev: () => {
-            dispatch(loadPrevMediumAndEmit());
+        select: (medium) => {
+            dispatch(selectMediumAndEmit(medium));
         },
         enableFullScreen: () => {
             dispatch(enableFullScreen());

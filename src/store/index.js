@@ -1,10 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import reducers from '../reducers';
+import reducers from '../modules';
 import thunk from 'redux-thunk';
-import {
-    IO_SELECT_MEDIUM, 
-    IO_JOIN_ROOM
-} from '../actions';
+import { IO_SELECT_MEDIUM, IO_JOIN_ROOM } from '../modules/data.js';
 import socket from '../libs/socket.js';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

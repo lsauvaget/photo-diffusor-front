@@ -11,7 +11,7 @@ import WelcomePopin from '../components/welcomePopin/welcomePopin.js';
 
 import './App.css';
 
-import {closeWelcomePopin} from '../actions';
+import {closeWelcomePopin} from '../modules/welcomePopin.js';
 
 import {
     getLightboxUi, 
@@ -20,7 +20,7 @@ import {
     getFilmStripUi,
     getFlashCodeButtonUi,
     getData
-} from '../reducers';
+} from '../modules';
 
 const mapStateToProps = (state) => {
     return {

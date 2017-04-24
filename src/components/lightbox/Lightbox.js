@@ -24,14 +24,14 @@ class Lightbox extends Component {
         return (
             <div className="Lightbox">
                 <TouchWrapper
-                    moveLeft={props.loadPrev}
-                    moveRight={props.loadNext} >
+                    moveLeft={() => props.select(props.prevMedium)}
+                    moveRight={() => props.select(props.nextMedium)} >
                     <KeyDown
                         keyCode="37"
-                        toTrigger={props.loadPrev} />
+                        toTrigger={() => props.select(props.prevMedium)} />
                     <KeyDown
                         keyCode="39"
-                        toTrigger={props.loadNext} />
+                        toTrigger={() => props.select(props.nextMedium)} />
 
                     <div className="Lightbox__wrapper">
                         {props.imageLoaded && !props.fullScreen &&
@@ -40,10 +40,10 @@ class Lightbox extends Component {
                                 <Cross click={props.onCloseClick}/>
                             </div>
                             <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-left">
-                                <LeftArrow click={props.loadPrev}/>
+                                <LeftArrow click={() => props.select(props.prevMedium)}/>
                             </div>
                             <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-right">
-                                <RightArrow click={props.loadNext}/>
+                                <RightArrow click={() => props.select(props.nextMedium)}/>
                             </div>
                         </div>}
                         {!props.imageLoaded && <Loader/>}
