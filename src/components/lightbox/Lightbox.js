@@ -10,50 +10,79 @@ import KeyDown from '../KeyDown.js';
 class Lightbox extends Component {
 
     componentWillReceiveProps(props) {
-        if(props.medium.id  !== this.props.medium.id) {
+        if(props.selectedMedium.id  !== this.props.selectedMedium.id) {
             props.onImageLoadingStart();
-        } 
+        }
+    }
+
+    selectNextMedium = () => {
+        const {media, selectedMedium, onSelect} = this.props;
+        const idx = media.findIndex((medium) => medium.id === selectedMedium.id);
+        onSelect(idx < media.length - 1 ?  media[idx + 1] : media[0]);
+    }
+
+    selectPreviousMedium = () => {
+        const {media, selectedMedium, onSelect} = this.props;
+        const idx = media.findIndex((medium) => medium.id === selectedMedium.id);
+        idx < media.length - 1 ?  onSelect(media[idx + 1]) : onSelect(media[0]);
+        onSelect(idx - 1 > 0 ? media[idx - 1] : media[media.length - 1]);
+    }
+
+    toggleFullScreen = () => {
+        this.props.fullScreen ? this.props.disableFullScreen() : this.props.enableFullScreen() 
+    }
+
+    renderImage = () => {
+        let imageClass = 'Lightbox__wrapper__img';
+        imageClass += this.props.imageLoaded ? ' Lightbox__wrapper__img--loaded' : '' ;
+        imageClass += this.props.fullScreen ? ' Lightbox__wrapper__img--fullScreen' : '';
+        const url = `${configs.mediaUrl}${this.props.selectedMedium.fullSize}`;
+        return (
+            <img onClick={this.toggleFullScreen}
+            onLoad={this.props.onImageLoaded}
+            className={imageClass}
+            src={url}
+            alt=""/>
+        )
+    }
+
+    renderActionButtons = () => {
+        if(!this.props.imageLoaded || this.props.fullScreen) {
+            return null;
+        }
+        return (
+                <div className="Lightbox__wrapper__actions">
+                    <div className="Lightbox__wrapper__actions__close">
+                        <Cross click={this.props.onCloseClick}/>
+                    </div>
+                    <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-left">
+                        <LeftArrow click={this.selectNextMedium}/>
+                    </div>
+                    <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-right">
+                        <RightArrow click={this.selectPreviousMedium}/>
+                    </div>
+                </div>)
     }
 
     render() {
         const props = this.props;
-        let imageClass = 'Lightbox__wrapper__img';
-        imageClass += props.imageLoaded ? ' Lightbox__wrapper__img--loaded' : '' ;
-        imageClass += props.fullScreen ? ' Lightbox__wrapper__img--fullScreen' : '';
         const overlayClass = `Lightbox__overlay ${props.fullScreen ? 'Lightbox__overlay--fullScreen': ''}`
         return (
             <div className="Lightbox">
                 <TouchWrapper
-                    moveLeft={() => props.select(props.prevMedium)}
-                    moveRight={() => props.select(props.nextMedium)} >
+                    moveLeft={this.selectNextMedium}
+                    moveRight={this.selectPreviousMedium} >
                     <KeyDown
                         keyCode="37"
-                        toTrigger={() => props.select(props.prevMedium)} />
+                        toTrigger={this.selectNextMedium} />
                     <KeyDown
                         keyCode="39"
-                        toTrigger={() => props.select(props.nextMedium)} />
+                        toTrigger={this.selectPreviousMedium} />
 
                     <div className="Lightbox__wrapper">
-                        {props.imageLoaded && !props.fullScreen &&
-                        <div className="Lightbox__wrapper__actions">
-                            <div className="Lightbox__wrapper__actions__close">
-                                <Cross click={props.onCloseClick}/>
-                            </div>
-                            <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-left">
-                                <LeftArrow click={() => props.select(props.prevMedium)}/>
-                            </div>
-                            <div className="Lightbox__wrapper__actions__arrow Lightbox__wrapper__actions__arrow-right">
-                                <RightArrow click={() => props.select(props.nextMedium)}/>
-                            </div>
-                        </div>}
                         {!props.imageLoaded && <Loader/>}
-                        <img onClick={() => {
-                            props.fullScreen ? props.disableFullScreen() : props.enableFullScreen() 
-                            }}
-                            onLoad={props.onImageLoaded} 
-                            className={imageClass} 
-                            src={`${configs.mediaUrl}${props.medium.fullSize}`} 
-                            alt=""/>
+                        {this.renderActionButtons()}
+                        {this.renderImage()}
                     </div>
                 </TouchWrapper>
                 <div onClick={props.onCloseClick} className={overlayClass}></div>

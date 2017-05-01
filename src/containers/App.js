@@ -49,7 +49,9 @@ const App = ({
         />
 
         <div className="App__lightbox">
-            <LightboxWithActions />
+            {lightboxUi.open &&
+                <LightboxWithActions />
+            }
         </div>
 
         {flashCodeUi.show &&

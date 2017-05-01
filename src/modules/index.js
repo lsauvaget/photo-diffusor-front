@@ -28,7 +28,7 @@ const state = {
     }
 }
 
-export default combineReducers({ data, ui, });
+export default combineReducers({ data, ui});
 
 export const getLightboxUi = (state) => fromUi.getLightboxUi(state.ui);
 export const getFilmStripUi = (state) => fromUi.getFilmStripUi(state.ui);

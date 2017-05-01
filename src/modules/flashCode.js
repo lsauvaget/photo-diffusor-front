@@ -1,10 +1,7 @@
 import {getData} from './index.js';
 import axios from 'axios';
 import config from '../configs';
-
-export const SHOW_FLASH_CODE = 'SHOW_FLASH_CODE';
-export const CLOSE_FLASH_CODE = 'CLOSE_FLASH_CODE';
-export const RECEIVE_SHORT_LINK = 'RECEIVE_SHORT_LINK';
+import * as types from './types.js';
 
 const initialState = {
     link: '',
@@ -14,14 +11,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-            //FlashCode
-        case SHOW_FLASH_CODE:
+        case types.SHOW_FLASH_CODE:
             return {...state, show: true};
 
-        case CLOSE_FLASH_CODE:
+        case types.SELECT_MEDIUM:
+        case types.CLOSE_FLASH_CODE:
             return {...state, show: false};
 
-        case RECEIVE_SHORT_LINK:
+        case types.RECEIVE_SHORT_LINK:
             return {...state, shortLink: action.flashCodeShortLink};
 
         default:
@@ -30,16 +27,16 @@ export default (state = initialState, action) => {
 }
 
 export const receiveShortLink = (link) => ({
-    type: RECEIVE_SHORT_LINK,
+    type: types.RECEIVE_SHORT_LINK,
     flashCodeShortLink:  link
 });
 
 export const showFlashCode = () => ({
-    type: SHOW_FLASH_CODE
+    type: types.SHOW_FLASH_CODE
 });
 
 export const closeFlashCode = () => ({
-    type: CLOSE_FLASH_CODE
+    type: types.CLOSE_FLASH_CODE
 });
 
 export const fetchRoomShortLink = () => (dispatch, getState) => {

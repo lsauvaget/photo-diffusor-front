@@ -1,5 +1,4 @@
-const SHOW_FLASH_CODE_BUTTON = 'SHOW_FLASH_CODE_BUTTON';
-const HIDE_FLASH_CODE_BUTTON = 'HIDE_FLASH_CODE_BUTTON';
+import * as types from './types.js';
 
 const initialState = {
     show: true
@@ -7,10 +6,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case SHOW_FLASH_CODE_BUTTON:
+        case types.DISABLE_FULL_SCREEN:
+        case types.SHOW_FLASH_CODE_BUTTON:
             return {...state, show: true};
 
-        case HIDE_FLASH_CODE_BUTTON:
+        case types.ENABLE_FULL_SCREEN:
+        case types.HIDE_FLASH_CODE_BUTTON:
             return {...state, show: false};
 
         default:
@@ -19,9 +20,9 @@ export default (state = initialState, action) => {
 }
 
 export const showFlashCodeButton = () => ({
-    type: SHOW_FLASH_CODE_BUTTON
+    type: types.SHOW_FLASH_CODE_BUTTON
 });
 
 export const hideFlashCodeButton = () => ({
-    type: HIDE_FLASH_CODE_BUTTON
+    type: types.HIDE_FLASH_CODE_BUTTON
 });

@@ -17,7 +17,7 @@ export default combineReducers({
 function mediaReducer(state = [], action) {
     switch (action.type) {
         case RECEIVE_MEDIA:
-            return state.concat(action.media)
+            return action.media;
 
         default:
             return state;
@@ -45,22 +45,6 @@ function selectedMediumReducer(state = null, action) {
 };
 
 export const getSelectedMedium = state => state.selectedMedium; 
-
-export const getNextMedium = state => {
-   if(!state.selectedMedium) {
-       return null;
-   }
-   const idx = state.media.findIndex((medium) => medium.id === state.selectedMedium.id);
-   return idx < state.media.length - 1 ? state.media[idx + 1] : state.media[0];
-}
-
-export const getPrevMedium = state => {
-   if(!state.selectedMedium) {
-       return null;
-   }
-   const idx = state.media.findIndex((medium) => medium.id === state.selectedMedium.id);
-   return idx - 1 > 0 ? state.media[idx - 1] : state.media[state.media.length - 1];
-}
 
 export const ioSelectMedium = (selectedMedium) => ({
     type: IO_SELECT_MEDIUM,
