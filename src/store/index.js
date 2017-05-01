@@ -1,10 +1,14 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import reducers from '../modules';
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga'
 import { IO_SELECT_MEDIUM, IO_JOIN_ROOM } from '../modules/data.js';
 import socket from '../libs/socket.js';
+import rootSagas from '../modules/sagas';
 
+const sagaMiddleware = createSagaMiddleware()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 
 /**
  * Logs all actions and states after they are dispatched.
@@ -34,6 +38,9 @@ const socketMiddleware = store => next => action => {
 
 
 export default createStore(reducers, composeEnhancers(
-    applyMiddleware(logger, thunk, socketMiddleware)
+    applyMiddleware(logger, thunk, socketMiddleware, sagaMiddleware)
 ));
+
+sagaMiddleware.run(rootSagas)
+
 

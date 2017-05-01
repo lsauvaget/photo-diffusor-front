@@ -6,11 +6,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case types.DISABLE_FULL_SCREEN:
         case types.SHOW_FLASH_CODE_BUTTON:
             return {...state, show: true};
 
-        case types.ENABLE_FULL_SCREEN:
         case types.HIDE_FLASH_CODE_BUTTON:
             return {...state, show: false};
 

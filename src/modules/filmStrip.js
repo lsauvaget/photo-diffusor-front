@@ -12,11 +12,9 @@ export default (state = {
         case types.CLOSE_FILMSTRIP:
             return {...state, open: false};
 
-        case types.DISABLE_FULL_SCREEN:
         case types.SHOW_FILMSTRIP_BUTTON:
             return {...state, showButton: true};
 
-        case types.ENABLE_FULL_SCREEN:
         case types.HIDE_FILMSTRIP_BUTTON:
             return {...state, showButton: false};
 

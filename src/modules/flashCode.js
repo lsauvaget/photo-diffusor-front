@@ -14,7 +14,6 @@ export default (state = initialState, action) => {
         case types.SHOW_FLASH_CODE:
             return {...state, show: true};
 
-        case types.SELECT_MEDIUM:
         case types.CLOSE_FLASH_CODE:
             return {...state, show: false};
 

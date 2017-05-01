@@ -15,11 +15,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case types.SELECT_MEDIUM:
         case types.OPEN_LIGHTBOX:
             return {...state, open: true, fullScreen: false};
 
-        case types.UNSELECT_MEDIUM:
         case types.CLOSE_LIGHTBOX:
             return {...state, open: false, fullScreen: false};
 

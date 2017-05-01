@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 
-const SELECT_MEDIUM = 'SELECT_MEDIUM';
-const UNSELECT_MEDIUM = 'UNSELECT_MEDIUM';
+export const SELECT_MEDIUM = 'SELECT_MEDIUM';
+export const UNSELECT_MEDIUM = 'UNSELECT_MEDIUM';
 export const IO_SELECT_MEDIUM = 'IO/SELECT_MEDIUM';
 export const IO_JOIN_ROOM = 'IO/JOIN_ROOM';
-const RECEIVE_MEDIA = 'RECEIVE_MEDIA';
-const RECEIVE_ROOM_ID = 'RECEIVE_ROOM_ID';
-const JOIN_ROOM = 'JOIN_ROOM';
+export const RECEIVE_MEDIA = 'RECEIVE_MEDIA';
+export const RECEIVE_ROOM_ID = 'RECEIVE_ROOM_ID';
+export const JOIN_ROOM = 'JOIN_ROOM';
 
 export default combineReducers({
     media: mediaReducer,
