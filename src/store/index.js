@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import reducers from '../modules';
+import reducers from '../features/gallery';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga'
-import { IO_SELECT_MEDIUM, IO_JOIN_ROOM } from '../modules/data.js';
+import { types as dataTypes} from '../features/gallery/data';
 import socket from '../libs/socket.js';
-import rootSagas from '../modules/sagas';
+import rootSagas from '../features/rootSagas.js';
 
 const sagaMiddleware = createSagaMiddleware()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -27,10 +27,10 @@ const logger = store => next => action => {
  * Emit socket event on som hook
  */
 const socketMiddleware = store => next => action => {
-    if(action.type === IO_SELECT_MEDIUM) {
+    if(action.type === dataTypes.IO_SELECT_MEDIUM) {
         socket.emit('select', action.selectedMedium);
     }
-    if(action.type === IO_JOIN_ROOM) {
+    if(action.type === dataTypes.IO_JOIN_ROOM) {
         socket.emit('joinRoom', action.roomId);
     }
   return next(action);

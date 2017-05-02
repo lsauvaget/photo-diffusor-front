@@ -1,9 +1,8 @@
 import FilmStrip from '../components/filmStrip/filmStrip.js';
 import {connect} from 'react-redux';
-import {openFilmStrip, closeFilmStrip} from '../modules/filmStrip.js';
-import {selectMediumAndEmit} from '../modules/data.js';
-import {openLightbox} from '../modules/lightbox.js';
-import {getFilmStripUi, getData} from '../modules';
+import {actions as filmStripActions} from '../features/gallery/ui/filmStrip';
+import {actions as dataActions} from '../features/gallery/data';
+import {getFilmStripUi, getData} from '../features/gallery';
 
 const mapStateToProps = (state) => {
     return {
@@ -15,14 +14,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onMediumClick: (medium) => {
-            dispatch(selectMediumAndEmit(medium));
-            dispatch(openLightbox());
+            dispatch(dataActions.selectMediumAndEmit(medium));
         },
         closeFilmStrip: () => {
-            dispatch(closeFilmStrip());
+            dispatch(filmStripActions.closeFilmStrip());
         },
         openFilmStrip: () => {
-            dispatch(openFilmStrip());
+            dispatch(filmStripActions.openFilmStrip());
         }
     }
 }

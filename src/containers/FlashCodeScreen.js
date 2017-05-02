@@ -1,7 +1,7 @@
 import FlashCode from '../components/flashCode/FlashCode.js';
 import {connect} from 'react-redux';
-import {getFlashCodeUi, getData} from '../modules';
-import {closeFlashCode} from '../modules/flashCode.js';
+import {getFlashCodeUi, getData} from '../features/gallery';
+import {actions} from '../features/gallery/ui/flashcode';
 
 const mapStateToProps = (state) => {
     const {shortLink} = getFlashCodeUi(state);
@@ -12,15 +12,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        closeFlashCode: () => {
-            dispatch(closeFlashCode())
-        }
-    }
-}
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    actions
 )(FlashCode);

@@ -11,7 +11,7 @@ import WelcomePopin from '../components/welcomePopin/welcomePopin.js';
 
 import './App.css';
 
-import {closeWelcomePopin} from '../modules/welcomePopin.js';
+import {actions as welcomePopinActions} from '../features/gallery/ui/welcomePopin';
 
 import {
     getLightboxUi, 
@@ -20,7 +20,7 @@ import {
     getFilmStripUi,
     getFlashCodeButtonUi,
     getData
-} from '../modules';
+} from '../features/gallery';
 
 const mapStateToProps = (state) => {
     return {
@@ -44,7 +44,7 @@ const App = ({
     <div className="App">
 
         <WelcomePopin 
-            onCloseClick={() => dispatch(closeWelcomePopin())}
+            onCloseClick={() => dispatch(welcomePopinActions.closeWelcomePopin())}
             isOpen={welcomePopinUi.open}
         />
 

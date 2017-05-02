@@ -1,16 +1,8 @@
-import React from 'react';
 import {connect} from 'react-redux';
 import Lightbox from '../components/lightbox/Lightbox.js';
-import {
-    imageLoadedInLightbox,
-    imageLoadingStartInLightbox,
-    enableFullScreen,
-    disableFullScreen,
-} from '../modules/lightbox.js';
-
-import { selectMediumAndEmit, unselectMedium} from '../modules/data.js';
-
-import {getData, getLightboxUi} from '../modules';
+import {actions as lightboxActions} from '../features/gallery/ui/lightbox';
+import {actions as dataActions} from '../features/gallery/data';
+import {getData, getLightboxUi} from '../features/gallery';
 
 const mapStateToProps = (state) => {
     return {
@@ -20,12 +12,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    onCloseClick: unselectMedium,
-    onImageLoaded: imageLoadedInLightbox,
-    onSelect: selectMediumAndEmit,
-    enableFullScreen: enableFullScreen,
-    disableFullScreen: disableFullScreen,
-    onImageLoadingStart: imageLoadingStartInLightbox
+    onCloseClick: dataActions.unselectMedium,
+    onImageLoaded: lightboxActions.imageLoadedInLightbox,
+    onSelect: dataActions.selectMediumAndEmit,
+    enableFullScreen: lightboxActions.enableFullScreen,
+    disableFullScreen: lightboxActions.disableFullScreen,
+    onImageLoadingStart: lightboxActions.imageLoadingStartInLightbox
 }
 
 export default connect(

@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 import MobileButton from '../components/mobileButton/mobileButton.js';
-import {fetchRoomShortLink} from '../modules/flashCode.js';
+import {actions as flashCodeButtonActions} from '../features/gallery/ui/flashcode';
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onButtonClick: () => {
-            dispatch(fetchRoomShortLink())
+            dispatch(flashCodeButtonActions.fetchRoomShortLink())
         },
     }
 }
